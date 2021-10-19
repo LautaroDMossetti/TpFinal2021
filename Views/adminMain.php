@@ -6,10 +6,10 @@
         $loggedUser = $_SESSION['loggedUser'];
 
     require_once('header.php');
-    require_once('nav.php');
+    require_once('adminNav.php');
 ?>
     <div style="text-align: center; padding-top: 220px">
-        <h2>Welcome, <?php echo $loggedUser->getFirstname() . ' ' . $loggedUser->getLastName(); ?></h2>
+        <h2>Welcome, Admin</h2>
         
         <br>
 
@@ -19,6 +19,7 @@
     </div>
 <?php
     require_once('footer.php');
+    
     }else{
         $homeController = new HomeController();
 

@@ -6,13 +6,12 @@
             <h2>TP Lab IV 2021</h2>
 
             <label for="email">Email</label>
-            <input type="email" name="email">
+            <input type="text" name="email">
 
             <label for="password">Password</label>
             <input type="password" name="password">
 
             <button type="submit">Login</button>
-
         </form>
     </div>
 <?php
