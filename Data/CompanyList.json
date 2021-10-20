@@ -1,0 +1,74 @@
+[
+    {
+        "id": "1",
+        "nombre": "Arcor",
+        "companyLink": "https:\/\/www.arcor.com\/ar\/",
+        "cuit": "331314123",
+        "estado": "gurugulu",
+        "descripcion": "Empresa arcor"
+    },
+    {
+        "id": 2,
+        "nombre": "Mcdonals",
+        "companyLink": "Macdonaldslink",
+        "cuit": "23141523",
+        "estado": "Estado Z",
+        "descripcion": "Empresa MacDonalds"
+    },
+    {
+        "id": 3,
+        "nombre": "Grido",
+        "companyLink": "GridoLink",
+        "cuit": "88535763",
+        "estado": "estadoFro",
+        "descripcion": "Grido Helados"
+    },
+    {
+        "id": 4,
+        "nombre": "Kingston",
+        "companyLink": "kingston.com",
+        "cuit": "461432525",
+        "estado": "estado23514",
+        "descripcion": "empresa kingston"
+    },
+    {
+        "id": "6",
+        "nombre": "Nike",
+        "companyLink": "nike.com",
+        "cuit": "3155713441",
+        "estado": "Estado 2",
+        "descripcion": "empresa nike"
+    },
+    {
+        "id": 7,
+        "nombre": "Razer",
+        "companyLink": "Razer.com",
+        "cuit": "341113222",
+        "estado": "razer863",
+        "descripcion": "Empresa Razer"
+    },
+    {
+        "id": 8,
+        "nombre": "AMD",
+        "companyLink": "amd.com",
+        "cuit": "238888490",
+        "estado": "99992388xt",
+        "descripcion": "empresa amd"
+    },
+    {
+        "id": "9",
+        "nombre": "LG",
+        "companyLink": "lg.com",
+        "cuit": "29993132",
+        "estado": "29dw222",
+        "descripcion": "empresa lg"
+    },
+    {
+        "id": 10,
+        "nombre": "Disney",
+        "companyLink": "disney.com",
+        "cuit": "29393939",
+        "estado": "23331366",
+        "descripcion": "empresa disney"
+    }
+]

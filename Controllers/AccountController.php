@@ -18,7 +18,7 @@
             $studentsList = $apiController->GetAll();
 
             //Login as admin
-            if($email == 'admin123' && $password == 'adminPass'){
+            if($email == 'admin123@admin123.com' && $password == 'adminPass'){
 
                 $loggedUser = new Admin();
 
@@ -28,7 +28,7 @@
 
                 $_SESSION['loggedUser'] = $loggedUser;
 
-                $this->ShowAdminMainView();
+                $this->ShowMainView();
             }
             //Login as student
             elseif($email != null){
@@ -59,10 +59,10 @@
 
                         $this->ShowMainView();
                     }else{
-                        $homeController->Index('Contraseña incorrecta');
+                        $homeController->Index('Datos incorrectos');
                     }
                 }else{
-                    $homeController->Index('Email incorrecto');
+                    $homeController->Index('Datos incorrectos');
                 }
             }else{
                 $homeController->Index('Ingrese un email');
@@ -78,10 +78,6 @@
 
         public function ShowMainView(){
             require_once(VIEWS_PATH."main.php");
-        }
-
-        public function ShowAdminMainView(){
-            require_once(VIEWS_PATH."adminMain.php");
         }
 
         public function ShowLoginView($message = "")
