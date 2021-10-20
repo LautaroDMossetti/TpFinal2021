@@ -1,48 +1,12 @@
 <?php
     namespace Controllers;
-<<<<<<< HEAD
     use DAO\CompanyDAO;
     use Models\Company;
-=======
-
-    use DAO\CompanyDAO;
-    use Models\Company;
-
->>>>>>> 7598659b62f5917367bbdc8f122c57a47cdeb58c
     class CompanyController{
         private $companyDao;
         
         public function __construct()
         {
-<<<<<<< HEAD
-            $companyDao=new CompanyDAO();
-        }
-        
-        public function showListView(){
-            $companyList=$this->companyDao->getAll();
-            require_once(VIEWS_PATH."List-Company.php");
-        }
-        
-        public function showOneView($nombre){
-            $companyList=$this->companyDao->getOne($nombre);
-            require_once(VIEWS_PATH."List-Company.php");
-        }
-        
-        public function showAddView(){
-            require_once(VIEWS_PATH."CompanyAdd.php");
-        }
-        
-        public function Add($link,$cuit,$nombre,$id,$descripcion,$estado){
-            $company=new Company();
-            $company->setCompanyLink($link);
-            $company->setCuit($cuit);
-            $company->setNombre($nombre);
-            $company->setId($id);
-            $company->setDescripcion($descripcion);
-            $company->setEstado($estado);
-            $this->companyDao->Add($company);
-            $this->showAddView();
-=======
             $this->companyDao = new CompanyDAO();
         }
         
@@ -115,7 +79,6 @@
             $companyList = $this->companyDao->filterByName($nombre);
 
             require_once(VIEWS_PATH."List-Company.php");
->>>>>>> 7598659b62f5917367bbdc8f122c57a47cdeb58c
         }
     }
 ?>
