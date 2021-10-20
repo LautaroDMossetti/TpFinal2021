@@ -1,12 +1,20 @@
 <?php
     namespace Models;
     class Company{
+<<<<<<< HEAD
+=======
+        private $id;
+>>>>>>> 7598659b62f5917367bbdc8f122c57a47cdeb58c
         private $nombre;
         private $estado;
         private $companyLink;
         private $cuit;
         private $descripcion;
+<<<<<<< HEAD
         private $id;
+=======
+        
+>>>>>>> 7598659b62f5917367bbdc8f122c57a47cdeb58c
         public function getNombre(){
             return $this->nombre;
         }
