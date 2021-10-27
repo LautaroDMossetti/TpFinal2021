@@ -133,7 +133,15 @@
         {
 
             $this->retriveData();
+
+            $k = array_key_last($this->companyList);
+            $id = $this->companyList[$k]->getId() + 1;
+
+            $Empresa->setId($id);
+
             array_push($this->companyList,$Empresa);
+
+
             $this->saveData();
 
         }

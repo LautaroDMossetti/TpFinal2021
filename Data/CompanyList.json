@@ -4,8 +4,8 @@
         "nombre": "Arcor",
         "companyLink": "https:\/\/www.arcor.com\/ar\/",
         "cuit": "331314123",
-        "estado": "gurugulu",
-        "descripcion": "Empresa arcor"
+        "estado": "12398",
+        "descripcion": "Empresa arcor dulces"
     },
     {
         "id": 2,
@@ -16,11 +16,11 @@
         "descripcion": "Empresa MacDonalds"
     },
     {
-        "id": 3,
+        "id": "3",
         "nombre": "Grido",
         "companyLink": "GridoLink",
         "cuit": "88535763",
-        "estado": "estadoFro",
+        "estado": "2356",
         "descripcion": "Grido Helados"
     },
     {
@@ -30,14 +30,6 @@
         "cuit": "461432525",
         "estado": "estado23514",
         "descripcion": "empresa kingston"
-    },
-    {
-        "id": "6",
-        "nombre": "Nike",
-        "companyLink": "nike.com",
-        "cuit": "3155713441",
-        "estado": "Estado 2",
-        "descripcion": "empresa nike"
     },
     {
         "id": 7,
@@ -70,5 +62,21 @@
         "cuit": "29393939",
         "estado": "23331366",
         "descripcion": "empresa disney"
+    },
+    {
+        "id": 11,
+        "nombre": "Nvidia",
+        "companyLink": "nividia.com",
+        "cuit": "3241412",
+        "estado": "3145122",
+        "descripcion": "empresa nvidia"
+    },
+    {
+        "id": 12,
+        "nombre": "Juanito",
+        "companyLink": "juanito.com",
+        "cuit": "333111222",
+        "estado": "oooooooo",
+        "descripcion": "empresa juanito"
     }
 ]

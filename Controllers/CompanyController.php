@@ -39,12 +39,6 @@
         public function Add($link,$cuit,$nombre,$descripcion,$estado){
             $company = new Company();
 
-            $companyList = ($this->companyDao->getAll());
-            $k = array_key_last($companyList);
-
-            $id = $companyList[$k]->getId() + 1;
-
-            $company->setId($id);
             $company->setCompanyLink($link);
             $company->setCuit($cuit);
             $company->setNombre($nombre);

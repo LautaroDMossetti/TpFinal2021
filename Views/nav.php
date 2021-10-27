@@ -19,7 +19,7 @@
         ?>
         
         <form action="<?php echo FRONT_ROOT ?>Company/ShowAddView" method="GET">
-            <button type="submit" class="btn btn-dark ml-auto d-block">Administrar Empresas</button>
+            <button type="submit" class="btn btn-dark ml-auto d-block">Agregar Empresa</button>
         </form>
 
         <?php
