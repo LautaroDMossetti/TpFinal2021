@@ -90,5 +90,9 @@
             
             <?php
         }
+
+        public function ShowProfileView(){
+            require_once(VIEWS_PATH."StudentProfile.php");
+        }
     }
 ?>

@@ -5,15 +5,15 @@
         "companyLink": "https:\/\/www.arcor.com\/ar\/",
         "cuit": "331314123",
         "estado": "12398",
-        "descripcion": "Empresa arcor dulces"
+        "descripcion": "Empresa arcor Arcor is an Argentine food company specialized in confectionery. The firm was founded on July 5, 1951 in the city of Arroyito, C\u00f3rdoba. It specializes in the production of foodstuff, sugar and chocolate confectionery, cookies and ice cream in 39 industrial plants throughout Latin America."
     },
     {
-        "id": 2,
+        "id": "2",
         "nombre": "Mcdonals",
         "companyLink": "Macdonaldslink",
         "cuit": "23141523",
         "estado": "Estado Z",
-        "descripcion": "Empresa MacDonalds"
+        "descripcion": "McDonald's is an American fast food company, founded in 1940 as a restaurant operated by Richard and Maurice McDonald, in San Bernardino, California, United States."
     },
     {
         "id": "3",
@@ -21,15 +21,15 @@
         "companyLink": "GridoLink",
         "cuit": "88535763",
         "estado": "2356",
-        "descripcion": "Grido Helados"
+        "descripcion": "Grido Helado is a chain of ice cream parlours in Argentina. It was founded by Santiago family from C\u00f3rdoba, Argentina in the early 2000s. As of today, it has 1,385 parlours in Argentina, Uruguay, Paraguay, and Chile, with plans to expand to Brazil, Bolivia and Spain."
     },
     {
-        "id": 4,
+        "id": "4",
         "nombre": "Kingston",
         "companyLink": "kingston.com",
         "cuit": "461432525",
         "estado": "estado23514",
-        "descripcion": "empresa kingston"
+        "descripcion": "Kingston Technology Corporation is an American multinational computer technology corporation that develops, manufactures, sells and supports flash memory products and other computer-related memory products, as well as the HyperX gaming division"
     },
     {
         "id": 7,
@@ -40,12 +40,12 @@
         "descripcion": "Empresa Razer"
     },
     {
-        "id": 8,
+        "id": "8",
         "nombre": "AMD",
         "companyLink": "amd.com",
         "cuit": "238888490",
         "estado": "99992388xt",
-        "descripcion": "empresa amd"
+        "descripcion": "Advanced Micro Devices, Inc. is an American multinational semiconductor company based in Santa Clara, California, that develops computer processors and related technologies for business and consumer markets."
     },
     {
         "id": "9",
@@ -78,5 +78,13 @@
         "cuit": "333111222",
         "estado": "oooooooo",
         "descripcion": "empresa juanito"
+    },
+    {
+        "id": 13,
+        "nombre": "Globant",
+        "companyLink": "https:\/\/www.globant.com",
+        "cuit": "33144423774",
+        "estado": "222sssddee3",
+        "descripcion": "Globant is an IT and Software Development company operating in Argentina, Colombia, Uruguay, the United Kingdom, Brazil, the United States, Peru, India, Mexico, Chile, Spain, Romania and Belarus. It was formed in 2003 by Mart\u00edn Migoya, Guibert Englebienne, Mart\u00edn Umaran and N\u00e9stor Nocetti."
     }
 ]

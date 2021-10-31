@@ -76,5 +76,12 @@
 
             require_once(VIEWS_PATH."List-Company.php");
         }
+
+        public function ShowCompanyProfileView($id){
+            $company = new Company();
+            $company = $this->companyDao->getOne($id);
+
+            require_once(VIEWS_PATH.'CompanyProfile.php');
+        }
     }
 ?>

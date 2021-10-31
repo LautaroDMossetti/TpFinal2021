@@ -23,9 +23,6 @@
         <?php
     }
     ?>    
-            <form action="<?php echo FRONT_ROOT ?>Account/Logout" method="POST">
-                <button type="submit">Logout</button>
-            </form>
     </div>
 <?php
     require_once('footer.php');

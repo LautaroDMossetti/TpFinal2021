@@ -6,7 +6,7 @@
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
 
-
+    require_once('header.php');
     require_once("nav.php");
 ?>
 <main class="py-5">
@@ -21,9 +21,7 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Descripcion</th>
                         <th>Cuit</th>
-                        <th>Estado</th>
                         <th>Link</th>
                     </tr>
                 </thead>
@@ -34,17 +32,19 @@
                                 ?>
                                     <tr>
                                         <td><?php echo $row->getNombre();?></td>
-                                        <td><?php echo $row->getDescripcion();?></td>
                                         <td><?php echo $row->getCuit();?></td>
-                                        <td><?php echo $row->getEstado();?></td>
                                         <td><?php echo $row->getCompanyLink();?></td>
                                         <td>
+                                            <form action="<?php echo FRONT_ROOT ?>Company/ShowCompanyProfileView" method="POST" style="display: inline;">
+                                                <button type="submit" name="id" value="<?php echo $row->getId(); ?>">Ver Perfil</button>
+                                            </form>
+
                                             <?php if($loggedUser instanceof Admin){
                                                 ?>
-                                                    <form action="<?php echo FRONT_ROOT ?>Company/ShowModifyView" method="POST" style="text-align: end;">
+                                                    <form action="<?php echo FRONT_ROOT ?>Company/ShowModifyView" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getId(); ?>">Modificar</button>
                                                     </form>
-                                                    <form action="<?php echo FRONT_ROOT ?>Company/Remove" method="POST" style="text-align: end;">
+                                                    <form action="<?php echo FRONT_ROOT ?>Company/Remove" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getId(); ?>">Eliminar</button>
                                                     </form>
                                                 <?php

@@ -2,11 +2,11 @@
     namespace DAO;
 
     use \Exception as Exception;
-    use DAO\IDAO as Idao;
+    use DAO\IDAO as IDAO;
     use Models\Student as Student;    
     use DAO\Connection as Connection;
 
-    class StudentDAO implements Idao
+    class StudentDAO implements IDAO
     {
         private $connection;
         private $tableName = "students";
@@ -17,6 +17,11 @@
         }
 
         public function GetAll()
+        {
+            
+        }
+
+        public function Remove($id)
         {
             
         }

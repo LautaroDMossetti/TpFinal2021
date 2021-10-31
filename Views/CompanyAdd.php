@@ -5,7 +5,7 @@
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
 
-
+    require_once('header.php');
     require_once("nav.php");
 ?>
 <form action="<?php echo(FRONT_ROOT)?>Company/Add" method="POST">
