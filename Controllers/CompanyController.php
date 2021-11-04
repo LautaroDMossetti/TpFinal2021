@@ -2,7 +2,9 @@
     namespace Controllers;
 
     use DAO\CompanyDAO;
+    use Exception;
     use Models\Company;
+    use Models\Alert as Alert;
 
     class CompanyController{
         private $companyDao;
@@ -13,60 +15,94 @@
         }
         
         public function ShowListView(){
+            $companyList = array();
+            $companyList = $this->companyDao->getAll();
+            require_once(VIEWS_PATH."List-Company.php");
+        }
+
+        public function ShowListViewWithAlert(Alert $alert){
+            $companyList = array();
             $companyList = $this->companyDao->getAll();
             require_once(VIEWS_PATH."List-Company.php");
         }
         
-        public function ShowOneView($nombre){
-            $companyList = $this->companyDao->getOne($nombre);
-            require_once(VIEWS_PATH."List-Company.php");
-        }
-        
-        public function ShowAddView($message = ""){
+        public function ShowAddView(){
             require_once(VIEWS_PATH."CompanyAdd.php");
-            ?>
-            <h5 style="text-align: center;"><?php echo $message; ?></h5>
-            <?php
         }
 
-        public function ShowModifyView($id, $message = ""){
+        public function ShowAddViewWithAlert(Alert $alert){
+            require_once(VIEWS_PATH."CompanyAdd.php");
+        }
+
+        public function ShowModifyView($id){
             require_once(VIEWS_PATH."CompanyModify.php");
-            ?>
-            <h5 style="text-align: center;"><?php echo $message; ?></h5>
-            <?php
         }
         
         public function Add($link,$cuit,$nombre,$descripcion,$estado){
-            $company = new Company();
+            $alert = new Alert("", "");
+            
+            try{
 
-            $company->setCompanyLink($link);
-            $company->setCuit($cuit);
-            $company->setNombre($nombre);
-            $company->setDescripcion($descripcion);
-            $company->setEstado($estado);
+                $company = new Company();
 
-            $this->companyDao->Add($company);
-            $this->showAddView("Empresa guardada con exito");
+                $company->setCompanyLink($link);
+                $company->setCuit($cuit);
+                $company->setNombre($nombre);
+                $company->setDescripcion($descripcion);
+                $company->setEstado($estado);
+
+                $this->companyDao->Add($company);
+
+                $alert->setType("success");
+                $alert->setMessage("Empresa guardada con exito");
+            }
+            catch (Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                $this->showAddViewWithAlert($alert);
+            }
         }
 
         public function Remove($id){
-            $this->companyDao->remove($id);
-            $this->ShowListView();
+            $alert = new Alert("", "");
+            
+            try{
+                $this->companyDao->remove($id);
+
+                $alert->setType("success");
+                $alert->setMessage("Empresa eliminada con exito");
+            }catch (Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                $this->ShowListViewWithAlert($alert);
+            }
         }
 
         public function Modify($id, $nombre, $descripcion, $cuit, $estado, $companyLink){
-            $modifiedCompany = new Company();
+            $alert = new Alert("", "");
+            
+            try{
+                $modifiedCompany = new Company();
 
-            $modifiedCompany->setId($id);
-            $modifiedCompany->setNombre($nombre);
-            $modifiedCompany->setDescripcion($descripcion);
-            $modifiedCompany->setCuit($cuit);
-            $modifiedCompany->setEstado($estado);
-            $modifiedCompany->setCompanyLink($companyLink);
+                $modifiedCompany->setCompanyId($id);
+                $modifiedCompany->setNombre($nombre);
+                $modifiedCompany->setDescripcion($descripcion);
+                $modifiedCompany->setCuit($cuit);
+                $modifiedCompany->setEstado($estado);
+                $modifiedCompany->setCompanyLink($companyLink);
 
-            $this->companyDao->modify($modifiedCompany);
+                $this->companyDao->modify($modifiedCompany);
 
-            $this->ShowListView();
+                $alert->setType("success");
+                $alert->setMessage("Empresa modificada con exito");
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                $this->ShowListViewWithAlert($alert);
+            }
         }
 
         public function FilterByName($nombre){

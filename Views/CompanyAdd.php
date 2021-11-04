@@ -1,6 +1,7 @@
 <?php
 
     use Controllers\HomeController as HomeController;
+    use Models\Alert as Alert;
 
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
@@ -33,6 +34,15 @@
         <button type="submit">Agregar</button>
     </div>
 </form>
+
+<?php
+    if(isset($alert)){
+        ?>
+        <h5 class="alert-<?php echo $alert->getType();?>" > <?php echo $alert->getMessage(); ?></h5>
+        <?php
+    }
+?>
+
 <?php
     require_once('footer.php');
     

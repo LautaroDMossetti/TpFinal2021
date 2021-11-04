@@ -4,164 +4,159 @@
     use \Exception as Exception;
     use Models\Company as Company;
     use DAO\IDAO as IDAO;
+    use DAO\Connection as Connection;
     
 
     class CompanyDAO implements IDAO{
         
-        private $companyList = array();
+        private $connection;
+        private $tableName = "companies";
 
         public function getAll()
         {
-            $this->retriveData();
-            return $this->companyList;
-        }
+            try
+            {
+                $companyList = array();
 
-        public function retriveData(){
-            $this->companyList = array();
+                $query = "SELECT * FROM ".$this->tableName.";";
 
-            if(file_exists((dirname(__DIR__) . "/Data/CompanyList.json"))){
-                $jsonContent = file_get_contents((dirname(__DIR__) . "/Data/CompanyList.json"));
+                $this->connection = Connection::GetInstance();
 
-                $ArrayToDecode = ($jsonContent) ? json_decode($jsonContent,true) : array();
-                
-                foreach($ArrayToDecode as $row){
-                    $company=new Company();
+                $resultSet = $this->connection->Execute($query);
 
-                    $company->setId($row["id"]);
+                foreach ($resultSet as $row)
+                {                
+                    $company = new Company();
+
+                    $company->setCompanyId($row["companyId"]);
                     $company->setNombre($row["nombre"]);
+                    $company->setEstado($row["estado"]);
                     $company->setCompanyLink($row["companyLink"]);
                     $company->setCuit($row["cuit"]);
                     $company->setDescripcion($row["descripcion"]);
-                    $company->setEstado($row["estado"]);
 
-                    array_push($this->companyList,$company);
-
+                    array_push($companyList, $company);
                 }
+
+                return $companyList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
             }
         }
 
         public function filterByName($nombre){
-            $this->retriveData();
+            try{
+                $companyList = array();
 
-            $s2 = $nombre;
-            $s2 = strtolower($s2);
+                $query = "SELECT * FROM ".$this->tableName." WHERE nombre LIKE '%". $nombre . "%';";
 
-            $filteredList = array();
+                $this->connection = Connection::GetInstance();
 
-            foreach($this->companyList as $company){
+                $resultSet = $this->connection->Execute($query);
 
-                $s1 = $company->getNombre();
+                foreach ($resultSet as $row)
+                {                
+                    $company = new Company();
 
-                $s1 = strtolower($s1);
+                    $company->setCompanyId($row["companyId"]);
+                    $company->setNombre($row["nombre"]);
+                    $company->setEstado($row["estado"]);
+                    $company->setCompanyLink($row["companyLink"]);
+                    $company->setCuit($row["cuit"]);
+                    $company->setDescripcion($row["descripcion"]);
 
-                if(str_contains($s1,$s2)){
-                    array_push($filteredList,$company);
+                    array_push($companyList, $company);
                 }
-            }
 
-            return $filteredList;
+                return $companyList;
+            }catch(Exception $ex)
+            {
+                throw $ex;
+            }
         }
 
         public function getOne($id){
-            $this->retriveData();
-            
-            foreach($this->companyList as $row){
-                if($row->getId() == $id){
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableName." WHERE companyId=". $id .";";
 
-                    $company=new Company();
+                $this->connection = Connection::GetInstance();
 
-                    $company = $row;
+                $resultSet = $this->connection->Execute($query);
 
-                    return $company;
-                }
+                $company = new Company();
+
+                $company->setCompanyId($resultSet[0]["companyId"]);
+                $company->setNombre($resultSet[0]["nombre"]);
+                $company->setEstado($resultSet[0]["estado"]);
+                $company->setCompanyLink($resultSet[0]["companyLink"]);
+                $company->setCuit($resultSet[0]["cuit"]);
+                $company->setDescripcion($resultSet[0]["descripcion"]);
+
+                return $company;
             }
-
-            return false;
-        }
-            
-        public function saveData(){
-            $arrayToEncode=array();
-
-            foreach($this->companyList as $company){
-                $valuesArray["id"]=$company->getId();
-                $valuesArray["nombre"]=$company->getNombre();
-                $valuesArray["companyLink"]=$company->getCompanyLink();
-                $valuesArray["cuit"]=$company->getCuit();
-                $valuesArray["estado"]=$company->getEstado();
-                $valuesArray["descripcion"]=$company->getDescripcion();
-                array_push($arrayToEncode,$valuesArray);
+            catch(Exception $ex)
+            {
+                throw $ex;
             }
-
-            $jsonContent=json_encode($arrayToEncode,JSON_PRETTY_PRINT);
-            
-            file_put_contents((dirname(__DIR__) . "/Data/CompanyList.json"),$jsonContent);
-
         }
 
         public function modify($modifiedCompany){
-         
-            $this->retriveData();
+            try
+            {
+                $query = "UPDATE ".$this->tableName." SET nombre = '" . $modifiedCompany->getNombre() .
+                "', estado = '" . $modifiedCompany->getEstado() ."', companyLink = '" . $modifiedCompany->getCompanyLink() .
+                "', cuit = " . $modifiedCompany->getCuit() . ", descripcion = '" . $modifiedCompany->getDescripcion() .
+                "' WHERE companyId=". $modifiedCompany->getCompanyId() . ";";
 
-            $arrayToEncode = array();
-            
-            foreach($this->companyList as $company){
-                
-                if($company->getId() == $modifiedCompany->getId()){
-                    $valuesArray["id"] = $modifiedCompany->getId();
-                    $valuesArray["nombre"] = $modifiedCompany->getNombre();
-                    $valuesArray["companyLink"] = $modifiedCompany->getCompanyLink();
-                    $valuesArray["cuit"] = $modifiedCompany->getCuit();
-                    $valuesArray["estado"] = $modifiedCompany->getEstado();
-                    $valuesArray["descripcion"] = $modifiedCompany->getDescripcion();
-                    array_push($arrayToEncode, $valuesArray);
-                }else{
-                    $valuesArray["id"]=$company->getId();
-                    $valuesArray["nombre"]=$company->getNombre();
-                    $valuesArray["companyLink"]=$company->getCompanyLink();
-                    $valuesArray["cuit"]=$company->getCuit();
-                    $valuesArray["estado"]=$company->getEstado();
-                    $valuesArray["descripcion"]=$company->getDescripcion();
-                    array_push($arrayToEncode,$valuesArray);
-                }
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->ExecuteNonQuery($query);
             }
-            
-            $jsonContent = json_encode($arrayToEncode,JSON_PRETTY_PRINT);
-            file_put_contents((dirname(__DIR__) . "/Data/CompanyList.json"),$jsonContent);
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
         }
 
         public function add($Empresa)
         {
+            try
+            {
+                $query = "INSERT INTO ".$this->tableName." (nombre, estado, companyLink, cuit, descripcion) VALUES (:nombre, :estado, :companyLink, :cuit, :descripcion);";
+                
+                $parameters["nombre"] = $Empresa->getNombre();
+                $parameters["estado"] = $Empresa->getEstado();
+                $parameters["companyLink"] = $Empresa->getCompanyLink();
+                $parameters["cuit"] = $Empresa->getCuit();
+                $parameters["descripcion"] = $Empresa->getDescripcion();
 
-            $this->retriveData();
+                $this->connection = Connection::GetInstance();
 
-            $k = array_key_last($this->companyList);
-            $id = $this->companyList[$k]->getId() + 1;
-
-            $Empresa->setId($id);
-
-            array_push($this->companyList,$Empresa);
-
-
-            $this->saveData();
+                $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
 
         }
 
         public function remove($id){
 
-            $this->retriveData();
+            try
+            {
+                $query = "DELETE FROM ".$this->tableName." WHERE companyId=". $id .";";
 
-            if($id != null){
+                $this->connection = Connection::GetInstance();
 
-                $newList = array();
-
-                foreach ($this->companyList as $company){
-                    if($company->getId() != $id){
-                        array_push($newList, $company);
-                    }
-                }
-
-                $this->companyList = $newList;
-                $this->saveData();
+                $this->connection->ExecuteNonQuery($query);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
             }
         }
     }

@@ -1,7 +1,7 @@
 <?php
     namespace Models;
     class Company{
-        private $id;
+        private $companyId;
         private $nombre;
         private $estado;
         private $companyLink;
@@ -13,13 +13,7 @@
         }
         public function setNombre($nombre){
             $this->nombre=$nombre;
-        }
-        public function getId(){
-            return $this->id;
-        }
-        public function setId($Id){
-            $this->id=$Id;
-        }
+        }       
         public function getDescripcion(){
             return $this->descripcion;
         }
@@ -43,6 +37,16 @@
         }
         public function setEstado($estado){
             $this->estado=$estado;
+        }
+        public function getCompanyId()
+        {
+            return $this->companyId;
+        }
+        public function setCompanyId($companyId)
+        {
+            $this->companyId = $companyId;
+
+            return $this;
         }
     }
 ?>

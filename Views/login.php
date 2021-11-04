@@ -14,6 +14,8 @@
             <button type="submit">Login</button>
         </form>
     </div>
+
+    <h5 style="text-align: center;"><?php echo $message; ?></h5>
 <?php
     require_once('footer.php');
 ?>

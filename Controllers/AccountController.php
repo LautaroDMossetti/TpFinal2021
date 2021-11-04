@@ -83,12 +83,6 @@
         public function ShowLoginView($message = "")
         {
             require_once(VIEWS_PATH."login.php");
-            
-            ?>
-
-            <h5 style="text-align: center; color: green"><?php echo $message; ?></h5>
-            
-            <?php
         }
 
         public function ShowProfileView(){

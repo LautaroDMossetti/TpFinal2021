@@ -10,6 +10,15 @@
     require_once("nav.php");
 ?>
 <main class="py-5">
+    
+    <?php
+    if(isset($alert)){
+        ?>
+        <h5 class="alert-<?php echo $alert->getType();?>" > <?php echo $alert->getMessage(); ?></h5>
+        <?php
+    }
+    ?>
+
     <section id="listado" class="mb-5">
         <div class="container">
             <h2 class="mb-4">Listado de Empresas</h2>
@@ -36,16 +45,16 @@
                                         <td><?php echo $row->getCompanyLink();?></td>
                                         <td>
                                             <form action="<?php echo FRONT_ROOT ?>Company/ShowCompanyProfileView" method="POST" style="display: inline;">
-                                                <button type="submit" name="id" value="<?php echo $row->getId(); ?>">Ver Perfil</button>
+                                                <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Ver Perfil</button>
                                             </form>
 
                                             <?php if($loggedUser instanceof Admin){
                                                 ?>
                                                     <form action="<?php echo FRONT_ROOT ?>Company/ShowModifyView" method="POST" style="display: inline;">
-                                                        <button type="submit" name="id" value="<?php echo $row->getId(); ?>">Modificar</button>
+                                                        <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Modificar</button>
                                                     </form>
                                                     <form action="<?php echo FRONT_ROOT ?>Company/Remove" method="POST" style="display: inline;">
-                                                        <button type="submit" name="id" value="<?php echo $row->getId(); ?>">Eliminar</button>
+                                                        <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Eliminar</button>
                                                     </form>
                                                 <?php
                                             }

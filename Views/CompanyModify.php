@@ -16,8 +16,6 @@
 
     $companyToModify = $companyDAO->getOne($id);
 
-    
-
 ?>
 <table class="table bg-light-alpha">
     <thead>
@@ -36,7 +34,7 @@
                 ?>
                     <form action="<?php echo FRONT_ROOT ?>Company/Modify" method="POST">
                         <tr>
-                            <td><input type="number" name="id" value="<?php echo $companyToModify->getId();?>" readonly></td>
+                            <td><input type="number" name="id" value="<?php echo $companyToModify->getCompanyId();?>" readonly></td>
                             <td><input type="text" name="nombre" value="<?php echo $companyToModify->getNombre();?>"></td>
                             <td><input type="text" name="descripcion" value="<?php echo $companyToModify->getDescripcion();?>"></td>
                             <td><input type="number" name="cuit" value="<?php echo $companyToModify->getCuit();?>"></td>
