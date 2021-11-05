@@ -1,4 +1,5 @@
 Con XAMPP
-Dentro de la carpeta 'data'.
+'university' va dentro de la carpeta 'data'.
 
+Ruta predeterminada:
 C:\xampp\mysql\data\
