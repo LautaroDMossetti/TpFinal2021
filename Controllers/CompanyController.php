@@ -1,7 +1,7 @@
 <?php
     namespace Controllers;
 
-    use DAO\CompanyDAO;
+    use DAO\CompanyDao as CompanyDao;
     use Exception;
     use Models\Company;
     use Models\Alert as Alert;
@@ -11,7 +11,7 @@
         
         public function __construct()
         {
-            $this->companyDao = new CompanyDAO();
+            $this->companyDao = new CompanyDao();
         }
         
         public function ShowListView(){
@@ -106,18 +106,35 @@
         }
 
         public function FilterByName($nombre){
-            $companyList = array();
+            $alert = new Alert("", "");
 
-            $companyList = $this->companyDao->filterByName($nombre);
+            try{
+                $companyList = array();
 
-            require_once(VIEWS_PATH."List-Company.php");
+                $companyList = $this->companyDao->filterByName($nombre);
+
+                $alert->setType("success");
+                $alert->setMessage("Resultado de empresas de nombre ". $nombre);
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                require_once(VIEWS_PATH."List-Company.php");
+            }
         }
 
         public function ShowCompanyProfileView($id){
-            $company = new Company();
-            $company = $this->companyDao->getOne($id);
+            $alert = new Alert("", "");
 
-            require_once(VIEWS_PATH.'CompanyProfile.php');
+            try{
+                $company = new Company();
+                $company = $this->companyDao->getOne($id);
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                require_once(VIEWS_PATH.'CompanyProfile.php');
+            }
         }
     }
 ?>

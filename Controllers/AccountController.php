@@ -15,7 +15,7 @@
             //API
             $apiController = new APIController();
 
-            $studentsList = $apiController->GetAll();
+            $studentsList = $apiController->GetAllStudents();
 
             //Login as admin
             if($email == 'admin123@admin123.com' && $password == 'adminPass'){

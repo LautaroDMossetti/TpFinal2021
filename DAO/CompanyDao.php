@@ -50,11 +50,13 @@
             try{
                 $companyList = array();
 
-                $query = "SELECT * FROM ".$this->tableName." WHERE nombre LIKE '%". $nombre . "%';";
+                $query = "SELECT * FROM ".$this->tableName." WHERE nombre LIKE :nombre;";
+
+                $parameters['nombre'] = '%'.$nombre.'%';
 
                 $this->connection = Connection::GetInstance();
 
-                $resultSet = $this->connection->Execute($query);
+                $resultSet = $this->connection->Execute($query, $parameters);
 
                 foreach ($resultSet as $row)
                 {                
@@ -80,11 +82,13 @@
         public function getOne($id){
             try
             {
-                $query = "SELECT * FROM ".$this->tableName." WHERE companyId=". $id .";";
+                $query = "SELECT * FROM ".$this->tableName." WHERE companyId=:companyId;";
+
+                $parameters['companyId'] = $id;
 
                 $this->connection = Connection::GetInstance();
 
-                $resultSet = $this->connection->Execute($query);
+                $resultSet = $this->connection->Execute($query, $parameters);
 
                 $company = new Company();
 
@@ -106,14 +110,18 @@
         public function modify($modifiedCompany){
             try
             {
-                $query = "UPDATE ".$this->tableName." SET nombre = '" . $modifiedCompany->getNombre() .
-                "', estado = '" . $modifiedCompany->getEstado() ."', companyLink = '" . $modifiedCompany->getCompanyLink() .
-                "', cuit = " . $modifiedCompany->getCuit() . ", descripcion = '" . $modifiedCompany->getDescripcion() .
-                "' WHERE companyId=". $modifiedCompany->getCompanyId() . ";";
+                $query = "UPDATE ".$this->tableName." SET nombre = :nombre, estado = :estado, companyLink = :companyLink, cuit = :cuit, descripcion = :descripcion WHERE companyId=:companyId;";
+
+                $parameters['companyId'] = $modifiedCompany->getCompanyId();
+                $parameters["nombre"] = $modifiedCompany->getNombre();
+                $parameters["estado"] = $modifiedCompany->getEstado();
+                $parameters["companyLink"] = $modifiedCompany->getCompanyLink();
+                $parameters["cuit"] = $modifiedCompany->getCuit();
+                $parameters["descripcion"] = $modifiedCompany->getDescripcion();
 
                 $this->connection = Connection::GetInstance();
 
-                $this->connection->ExecuteNonQuery($query);
+                $this->connection->ExecuteNonQuery($query, $parameters);
             }
             catch(Exception $ex)
             {
@@ -148,11 +156,13 @@
 
             try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE companyId=". $id .";";
+                $query = "DELETE FROM ".$this->tableName." WHERE companyId=:companyId;";
+
+                $parameters['companyId'] = $id;
 
                 $this->connection = Connection::GetInstance();
 
-                $this->connection->ExecuteNonQuery($query);
+                $this->connection->ExecuteNonQuery($query, $parameters);
             }
             catch(Exception $ex)
             {

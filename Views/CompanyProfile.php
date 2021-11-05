@@ -10,6 +10,15 @@
     require_once("nav.php");
 ?>
 <main class="py-5">
+
+    <?php
+        if(isset($alert)){
+            ?>
+            <h5 class="alert-<?php echo $alert->getType();?>" > <?php echo $alert->getMessage(); ?></h5>
+            <?php
+        }
+    ?>
+
     <h2>Empresa: <?php echo $company->getNombre()?></h2>
 
     <ul style="list-style-type: none; background: gray; width: 66%; margin: 2px">

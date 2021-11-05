@@ -1,29 +1,68 @@
 <?php
     namespace Controllers;
 
+    use DAO\API as API;
+    use Controllers\StudentController as StudentController;
+    use Controllers\CareersController as CareersController;
+    use Controllers\JobPositionController as JobPositionController;
+
     class APIController{
+        private $API;
+
+        public function __construct(){
+            $this->API = new API();
+        }
         
-        public function GetAll(){
+        public function GetAllStudents(){
+            $APIData = $this->API->getAllStudents();
 
-            //Conection with the API
-            $ch = curl_init();
-
-            $url = "https://utn-students-api.herokuapp.com/api/Student";
-
-            $header = array(
-                'x-api-key: 4f3bceed-50ba-4461-a910-518598664c08'
-            );
-
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-            
-            $response = curl_exec($ch);
-
-            $arrayToDecode = json_decode($response, true);
-
-            return $arrayToDecode;
+            return $APIData;
         }
 
+        public function GetAllCareers(){
+            $APIData = $this->API->getAllCareers();
+
+            return $APIData;
+        }
+
+        public function GetAllJobPositions(){
+            $APIData = $this->API->getAllJobPositions();
+
+            return $APIData;
+        }
+
+        /*
+        public function TransferStudentsToDB(){
+            $APIData = $this->API->GetAllStudents();
+
+            $studentController = new StudentController();
+
+            $studentController->RecieveFromAPI($APIData);
+        }
+        */
+
+        /*
+        public function TransferCareersToDB(){
+            $APIData = $this->API->GetAllCareers();
+
+            $careerController = new CareerController();
+
+            $careerController->RecieveFromAPI($APIData);
+        }
+        */
+    
+        /*
+        public function TransferJobPositionsToDB(){
+            $APIData = $this->API->GetAllJobPositions();
+
+            $jobPositionController = new JobPositionController();
+
+            $jobPositionController->RecieveFromAPI($APIData);
+        }
+        */
+
+        public function ValidateDatabase(){
+
+        }
     }
 ?>

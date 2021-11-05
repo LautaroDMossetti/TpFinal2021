@@ -1,23 +1,23 @@
 <?php
     namespace Controllers;
 
-    use Models\Student as Student;
+    use Models\Career as Career;
     use Models\Alert as Alert;
     use Exception;
-    use DAO\StudentDao as StudentDao;
+    use DAO\CareerDAO as CareerDAO;
 
-    class StudentController{
-        private $studentDao;
+    class CareerController{
+        private $careerDAO;
         
         public function __construct()
         {
-            $this->studentDao = new StudentDao();
+            $this->careerDAO = new CareerDAO();
         }
 
         /*
         //Funcion para recibir datos desde a la API y guardarlos en una BD;
         public function RecieveFromAPI($APIData){
-            $this->studentDao->recieveFromAPI($APIData);
+            $this->careerDAO->recieveFromAPI($APIData);
         }
         */
     }

@@ -14,7 +14,7 @@
     <?php
 
     if($loggedUser instanceof Admin){
-        ?> <h2>Welcome, Admin</h2> <?php
+        ?> <h2>Welcome, Admin <?php echo $loggedUser->getAdminId()?></h2> <?php
     }else{
         ?>
             <h2>Welcome, <?php echo $loggedUser->getFirstname() . ' ' . $loggedUser->getLastName(); ?></h2>
