@@ -1,0 +1,4 @@
+Con XAMPP
+Dentro de la carpeta 'data'.
+
+C:\xampp\mysql\data\
