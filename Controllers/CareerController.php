@@ -14,6 +14,16 @@
             $this->careerDAO = new CareerDAO();
         }
 
+        public function ValidateCareersAgainstAPI($APIData){
+            try{
+                $this->careerDAO->validateCareersAgainstAPI($APIData);
+            }catch(Exception $ex)
+            {
+                throw $ex;
+            }
+            
+        }
+
         /*
         //Funcion para recibir datos desde a la API y guardarlos en una BD;
         public function RecieveFromAPI($APIData){

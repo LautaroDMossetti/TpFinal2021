@@ -2,6 +2,7 @@
 
     use Controllers\HomeController as HomeController;
     use Models\Admin as Admin;
+    use Models\Alert as Alert;
 
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
@@ -12,11 +13,11 @@
 <main class="py-5">
 
     <?php
-        if(isset($alert)){
-            ?>
-            <h5 class="alert-<?php echo $alert->getType();?>" > <?php echo $alert->getMessage(); ?></h5>
-            <?php
-        }
+    if($alert != null && $alert instanceof Alert){
+        ?>
+        <h5 class="alert-<?php echo $alert->getType();?>" > <?php echo $alert->getMessage(); ?></h5>
+        <?php
+    }
     ?>
 
     <h2>Empresa: <?php echo $company->getNombre()?></h2>

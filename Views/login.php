@@ -1,5 +1,8 @@
 <?php
-    require_once('header.php');
+
+use Models\Alert;
+
+require_once('header.php');
 ?>
     <div style="text-align: center; padding-top: 220px">
         <form action="<?php echo FRONT_ROOT ?>Account/Login" method="POST">
@@ -15,7 +18,18 @@
         </form>
     </div>
 
-    <h5 style="text-align: center;"><?php echo $message; ?></h5>
+    <?php
+    if($alert != null && $alert instanceof Alert){
+        ?>
+        <h5 class="alert-<?php echo $alert->getType();?>" > <?php echo $alert->getMessage(); ?></h5>
+        <?php
+    }
+    if($alert2 != null && $alert2 instanceof Alert){
+        ?>
+        <h5 class="alert-<?php echo $alert2->getType();?>" > <?php echo $alert2->getMessage(); ?></h5>
+        <?php
+    }
+    ?>
 <?php
     require_once('footer.php');
 ?>

@@ -41,5 +41,9 @@
 
                 return $this;
         }
+
+        public function toString(){
+                return "jobPositionId = " . $this->getJobPositionId() . ", careerId = " . $this->getCareerId() . ", description = " . $this->getDescription();
+            }
     }
 ?>

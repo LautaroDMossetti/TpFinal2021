@@ -36,7 +36,7 @@
 </form>
 
 <?php
-    if(isset($alert)){
+    if($alert != null && $alert instanceof Alert){
         ?>
         <h5 class="alert-<?php echo $alert->getType();?>" > <?php echo $alert->getMessage(); ?></h5>
         <?php

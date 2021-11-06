@@ -184,7 +184,6 @@
         }
 
         public function remove($id){
-
             try
             {
                 $query = "DELETE FROM ".$this->tableName." WHERE studentId=:studentId;";
@@ -199,6 +198,43 @@
             {
                 throw $ex;
             }
+        }
+
+        public function validateStudentsAgainstAPI($APIData){
+            try{
+                foreach($APIData as $row){
+                    $APIStudent = new Student();
+
+                    $APIStudent->setStudentId($row['studentId']);
+                    $APIStudent->setCareerId($row["careerId"]);
+                    $APIStudent->setFirstName($row["firstName"]);
+                    $APIStudent->setLastName($row["lastName"]);
+                    $APIStudent->setDni($row["dni"]);
+                    $APIStudent->setFileNumber($row["fileNumber"]);
+                    $APIStudent->setGender($row["gender"]);
+                    $APIStudent->setBirthDate($row["birthDate"]);
+                    $APIStudent->setEmail($row["email"]);
+                    $APIStudent->setPhoneNumber($row["phoneNumber"]);
+                    
+                    if($row["active"]){
+                        $APIStudent->setActive(1);
+                    }else{
+                        $APIStudent->setActive(0);
+                    }
+
+                    $DBStudent = $this->getOne($row['studentId']);
+                    
+                    if($DBStudent != null && strcmp($DBStudent->toStringWithoutPassword(),$APIStudent->toStringWithoutPassword()) != 0){
+                        $APIStudent->setPassword($DBStudent->getPassword());
+                        
+                        $this->modify($APIStudent);
+                    }
+                }
+            }catch(Exception $ex)
+            {
+                throw $ex;
+            }
+
         }
 
         /*

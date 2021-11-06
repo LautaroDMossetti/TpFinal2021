@@ -5,10 +5,8 @@
 
     class HomeController
     {
-        public function Index($message = "")
+        public function Index($alert = "", $alert2 = "")
         {
-            
-
             require_once(VIEWS_PATH."login.php");
         }
     }

@@ -14,23 +14,13 @@
             $this->companyDao = new CompanyDao();
         }
         
-        public function ShowListView(){
-            $companyList = array();
-            $companyList = $this->companyDao->getAll();
-            require_once(VIEWS_PATH."List-Company.php");
-        }
-
-        public function ShowListViewWithAlert(Alert $alert){
+        public function ShowListView($alert = ""){
             $companyList = array();
             $companyList = $this->companyDao->getAll();
             require_once(VIEWS_PATH."List-Company.php");
         }
         
-        public function ShowAddView(){
-            require_once(VIEWS_PATH."CompanyAdd.php");
-        }
-
-        public function ShowAddViewWithAlert(Alert $alert){
+        public function ShowAddView($alert = ""){
             require_once(VIEWS_PATH."CompanyAdd.php");
         }
 
@@ -60,7 +50,7 @@
                 $alert->setType("danger");
                 $alert->setMessage($ex->getMessage());
             }finally{
-                $this->showAddViewWithAlert($alert);
+                $this->showAddView($alert);
             }
         }
 
@@ -76,7 +66,7 @@
                 $alert->setType("danger");
                 $alert->setMessage($ex->getMessage());
             }finally{
-                $this->ShowListViewWithAlert($alert);
+                $this->ShowListView($alert);
             }
         }
 
@@ -101,7 +91,7 @@
                 $alert->setType("danger");
                 $alert->setMessage($ex->getMessage());
             }finally{
-                $this->ShowListViewWithAlert($alert);
+                $this->ShowListView($alert);
             }
         }
 

@@ -14,6 +14,15 @@
             $this->jobPositionDAO = new JobPositionDAO();
         }
 
+        public function ValidateJobPositionsAgainstAPI($APIData){
+            try{
+                $this->jobPositionDAO->validateJobPositionsAgainstAPI($APIData);
+            }catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         /*
         //Funcion para recibir datos desde a la API y guardarlos en una BD;
         public function RecieveFromAPI($APIData){

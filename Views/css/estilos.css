@@ -37,3 +37,8 @@ body {
      text-align: center;
      background-color: lightpink;
 }
+
+.alert-warning {
+     text-align: center;
+     background-color: rgb(220, 226, 137);
+}

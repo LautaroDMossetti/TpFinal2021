@@ -5,6 +5,7 @@
     use Controllers\StudentController as StudentController;
     use Controllers\CareersController as CareersController;
     use Controllers\JobPositionController as JobPositionController;
+    use \Exception as Exception;
 
     class APIController{
         private $API;
@@ -29,6 +30,22 @@
             $APIData = $this->API->getAllJobPositions();
 
             return $APIData;
+        }
+
+        public function ValidateDatabase($APIStudents, $APICareers, $APIJobPositions){
+            try{
+                $studentController = new StudentController();
+                $careerController = new CareerController();
+                $jobPositionController = new JobPositionController();
+
+                $studentController->ValidateStudentsAgainstAPI($APIStudents);
+                $careerController->ValidateCareersAgainstAPI($APICareers);
+                $jobPositionController->ValidateJobPositionsAgainstAPI($APIJobPositions);
+            }catch(Exception $ex)
+            {
+                throw $ex;
+            }
+
         }
 
         /*
@@ -60,9 +77,5 @@
             $jobPositionController->RecieveFromAPI($APIData);
         }
         */
-
-        public function ValidateDatabase(){
-
-        }
     }
 ?>

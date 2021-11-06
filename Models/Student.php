@@ -134,5 +134,13 @@
 
                 return $this;
         }
+
+        public function toString(){
+                return "studentId = " . $this->getStudentId() . ", careerId = " . $this->getCareerId() . ", firstName = " . $this->getFirstName() . ", lastName = " . $this->getLastName() . ", dni = " . $this->getDni() . ", fileNumber = " . $this->getFileNumber() . ", gender = " . $this->getGender() . ", birthDate = " . $this->getBirthDate() . ", email = " . $this->getEmail() . ", password = " . $this->getPassword() . ", phoneNumber = " . $this->getPhoneNumber() . ", active = " . $this->getActive();
+        }
+
+        public function toStringWithoutPassword(){
+                return "studentId = " . $this->getStudentId() . ", careerId = " . $this->getCareerId() . ", firstName = " . $this->getFirstName() . ", lastName = " . $this->getLastName() . ", dni = " . $this->getDni() . ", fileNumber = " . $this->getFileNumber() . ", gender = " . $this->getGender() . ", birthDate = " . $this->getBirthDate() . ", email = " . $this->getEmail() . ", phoneNumber = " . $this->getPhoneNumber() . ", active = " . $this->getActive();
+        }
     }
 ?>

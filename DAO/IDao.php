@@ -8,5 +8,8 @@
         function Add($Data);//Se usa la interfaz dao asi, por lo hablado en metodologia comision 4
         function GetAll();
         function Remove($id);
+        function Modify($Data);
+        function GetOne($id);
+
     }
 ?>
