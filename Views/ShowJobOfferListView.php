@@ -46,15 +46,21 @@ use Models\Admin as Admin;
                                     <td><?php echo $row->getDetalle() ?></td>
                                     <td>
                                     <form action="<?php echo FRONT_ROOT?>JobOffer/Modify" metod="POST" style="text-aling: end;">
-                                            <button type="submit" name="idJobOffer" value="<?php echo $row->getIdJobOffer()?>">Crear Oferta</button>
-                                        </form>
+                                            <button type="submit" name="id" value="<?php echo $row->getIdJobOffer()?>">Modificar Oferta</button>
+                                    </form>
+                                    <form action="<?php echo FRONT_ROOT?>JobOffer/Remove" metod="POST" style="text-aling: end;">
+                                            <button type="submit" name="id" value="<?php echo $row->getIdJobOffer()?>">Eliminar Oferta</button>
+                                    </form>
                                     </td>
                                 </tr>
-
+                               
                             <?php
                         }
                     }
                 ?>
+                <form action= "<?php echo FRONT_ROOT ?>JobOffer/ShowAddView" method="POST" Style="tect-aling: end;">
+                    <button type="submit">Crear Oferta</button>
+                </form>
             </tbody>
         </table>
     </div>

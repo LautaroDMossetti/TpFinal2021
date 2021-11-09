@@ -1,6 +1,8 @@
 <?php
     namespace Controllers;
-    use DAO\JobOfferDao as JobOfferDao;
+
+use DAO\CompanyDAO;
+use DAO\JobOfferDao as JobOfferDao;
     use Models\JobOffer;
     class JobOfferController{
         private $jobOfferDao;
@@ -23,14 +25,22 @@
             $jobsList=$this->jobOfferDao->serchByJob($id);
             require_once(VIEWS_PATH."ShowJobOfferListView.php");
         }
-        public function add($idCompany,$idJobPosition,$fecha,$detalle){
+        public function showModifyView($idJobOffer){
+            require_once(VIEWS_PATH."JobOfferModify.php");
+        }
+        public function Remove($id){
+            $this->JobOfferDao->remove($id);
+            require_once(VIEWS_PATH."ShowJobOfferList");
+        }
+        public function add($companyName,$idJobPosition,$fecha,$detalle){
             $joboffer=new JobOffer();
+            $companyDap=new CompanyDAO;
             $joboffer->setFecha($fecha);
             $joboffer->setDescripcion($detalle);
-            $joboffer->setIdCompany($idCompany);
+            $compny=$companyDap->getOne($companyName);
+            $joboffer->setIdCompany($compny->getIdCompany());
             $joboffer->setIdJobPosition($idJobPosition);
             $this->jobOfferDao->Add($joboffer);
-            //$this->showAddView();
         }
         public function modify($idCompany,$idJobPosition,$fecha,$detalle){
             $joboffer=new JobOffer();

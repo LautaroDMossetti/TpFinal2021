@@ -25,7 +25,7 @@ use Models\Admin as Admin;
                                 <tr>
                                     <td><?php echo $row->getDescripcion() ?></td>
                                     <td>
-                                        <form action="<?php echo FRONT_ROOT?>JobOffer/ShowAddView" metod="POST" style="text-aling: end;">
+                                        <form action="<?php echo FRONT_ROOT?>/ShowAddView" metod="POST" style="text-aling: end;">
                                             <button type="submit" name="idJobPosition" value="<?php echo $row->getIdJobPosition()?>">Crear Oferta</button>
                                         </form>
                                     </td>
