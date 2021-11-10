@@ -70,6 +70,19 @@
             }
         }
 
+        public function GetOneByName($nombre){
+            $company = null;
+
+            try{
+                $company = $this->companyDao->getOneByName($nombre);
+            }catch(Exception $ex){
+                throw $ex;
+            }finally{
+                return $company;
+            }
+
+        }
+
         public function Modify($id, $nombre, $descripcion, $cuit, $estado, $companyLink){
             $alert = new Alert("", "");
             

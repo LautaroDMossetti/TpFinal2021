@@ -38,6 +38,10 @@
             <?php
         }
     ?>
+
+    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowListView" method="GET">
+        <button type="submit" class="btn btn-dark ml-auto d-block">Listar Ofertas de Trabajo</button>
+    </form>
     
     <div style="position: absolute; right: 20px;">
         <form action="<?php echo FRONT_ROOT ?>Account/Logout" method="GET">

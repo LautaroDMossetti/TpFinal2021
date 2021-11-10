@@ -4,6 +4,7 @@
     use Models\Admin as Admin;
     use Models\Company as Company;
     use DAO\CompanyDAO as CompanyDAO;
+    use Models\Alert as Alert;
 
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
@@ -54,8 +55,13 @@
 <?php
     require_once('footer.php');
     }else{
+        $alert = new Alert("", "");
+
+        $alert->setType("danger");
+        $alert->setMessage("Acceso no autorizado");
+
         $homeController = new HomeController();
 
-        $homeController->Index("Acceso no autorizado");
+        $homeController->Index($alert);
     }
 ?>

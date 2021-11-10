@@ -9,7 +9,7 @@
     require_once('header.php');
     require_once("nav.php");
 ?>
-<form action="<?php echo(FRONT_ROOT)?>Company/Add" method="POST">
+<form action="<?php echo FRONT_ROOT?>Company/Add" method="POST">
     <div style="text-align: center; padding-top: 150px">
         <div class="form-group">
             <label for="nombre">Nombre</label>
@@ -47,8 +47,13 @@
     require_once('footer.php');
     
     }else{
+        $alert = new Alert("", "");
+
+        $alert->setType("danger");
+        $alert->setMessage("Acceso no autorizado");
+
         $homeController = new HomeController();
 
-        $homeController->Index("Acceso no autorizado");
+        $homeController->Index($alert);
     }
 ?>

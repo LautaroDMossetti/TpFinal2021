@@ -2,6 +2,7 @@
 
     use Controllers\HomeController as HomeController;
     use Models\Admin as Admin;
+    use Models\Alert as Alert;
 
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
@@ -28,8 +29,13 @@
     require_once('footer.php');
     
     }else{
+        $alert = new Alert("", "");
+
+        $alert->setType("danger");
+        $alert->setMessage("Acceso no autorizado");
+
         $homeController = new HomeController();
 
-        $homeController->Index("Acceso no autorizado");
+        $homeController->Index($alert);
     }
 ?>

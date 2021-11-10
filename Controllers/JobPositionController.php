@@ -14,6 +14,18 @@
             $this->jobPositionDAO = new JobPositionDAO();
         }
 
+        public function GetAll(){
+            $jobPositionList = $this->jobPositionDAO->getAll();
+            return $jobPositionList;
+        }
+
+        public function ShowListView(){
+
+            $jobPositionList = $this->GetAll();
+
+            require_once(VIEWS_PATH."JobPositionView.php");
+        }
+
         public function ValidateJobPositionsAgainstAPI($APIData){
             try{
                 $this->jobPositionDAO->validateJobPositionsAgainstAPI($APIData);
