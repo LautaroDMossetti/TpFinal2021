@@ -3,7 +3,8 @@
 
 use DAO\CompanyDAO;
 use DAO\JobOfferDao as JobOfferDao;
-    use Models\JobOffer;
+use DAO\StudentDAO;
+use Models\JobOffer;
     class JobOfferController{
         private $jobOfferDao;
         public function __construct()
@@ -49,6 +50,14 @@ use DAO\JobOfferDao as JobOfferDao;
             $joboffer->setIdCompany($idCompany);
             $joboffer->setIdJobPosition($idJobPosition);
             $this->jobOfferDao->modify($joboffer);
+        }
+        public function Alpy($idJobOffer,$idStudent){
+            $studentDao=new StudentDAO();
+            if(isset($idJobOffer)){
+                if(true==$studentDao->checkJobOffer($idJobOffer)){
+                    $studentDao->aply($idJobOffer,$idStudent);
+                }
+            }
         }
     }
 ?>

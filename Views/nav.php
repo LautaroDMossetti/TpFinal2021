@@ -13,6 +13,9 @@
         <button type="submit" class="btn btn-dark ml-auto d-block">Listar Empresas</button>
     </form>
     
+    <form action="<?php echo FRONT_ROOT ?>Student/viewInfo" method="GET">
+        <button type="submit" class="btn btn-dark ml-auto d-block">Mostrar informacion del ususario</button>
+    </form>
     <?php
 
     if($loggedUser instanceof Admin){

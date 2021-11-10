@@ -3,8 +3,9 @@ use Controllers\HomeController as HomeController;
 use DAO\CompanyDAO;
 use DAO\JobPositionDao;
 use Models\Admin as Admin;
+use Models\Student;
 
-    if(isset($_SESSION['loggedUser'])){
+if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
 
 
@@ -45,13 +46,26 @@ use Models\Admin as Admin;
                                     </td>
                                     <td><?php echo $row->getDetalle() ?></td>
                                     <td>
-                                    <form action="<?php echo FRONT_ROOT?>JobOffer/Modify" metod="POST" style="text-aling: end;">
-                                            <button type="submit" name="id" value="<?php echo $row->getIdJobOffer()?>">Modificar Oferta</button>
-                                    </form>
-                                    <form action="<?php echo FRONT_ROOT?>JobOffer/Remove" metod="POST" style="text-aling: end;">
-                                            <button type="submit" name="id" value="<?php echo $row->getIdJobOffer()?>">Eliminar Oferta</button>
-                                    </form>
+                                        <?php
+                                            if($loggedUser instanceof Admin){
+                                                ?>
+                                                <form action="<?php echo FRONT_ROOT?>JobOffer/Modify" metod="POST" style="text-aling: end;">
+                                                    <button type="submit" name="id" value="<?php echo $row->getIdJobOffer()?>">Modificar Oferta</button>
+                                                </form>
+                                                <form action="<?php echo FRONT_ROOT?>JobOffer/Remove" metod="POST" style="text-aling: end;">
+                                                    <button type="submit" name="id" value="<?php echo $row->getIdJobOffer()?>">Eliminar Oferta</button>
+                                                </form><?php
+                                            } 
+                                            elseif($loggedUser instanceof Student){
+                                                ?>
+                                                <form action="<?php echo FRONT_ROOT?>JobOffer/Aply" method="POST" style="text-aling: end;">
+                                                    <label for="idStudent" value="<?php $loggedUser->getStudentId()?>"></label>
+                                                    <button type="submit" name"idJobOffer" value="<?php echo $row->getIdJobOffer()?>">Aplicar a oferta laboral</button>
+                                                </form><?php
+                                            }
+                                        ?>
                                     </td>
+                                        
                                 </tr>
                                
                             <?php

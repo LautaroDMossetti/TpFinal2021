@@ -20,5 +20,35 @@
         {
             
         }
+        public function Remove($id)
+        {
+            
+        }
+        public function checkJobOffer($idJobOffer){
+            try{
+                $querry="SELECT * FROM ".$this->tableName."WHERE idJobOffer=".$idJobOffer;
+                $this->conection->CONNECTION::GetInstance();
+                $result=$this->conection->Execute($querry);
+                if($result==NULL){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
+        }
+        public function aply($idJobOffer,$idSudent){
+            try{
+                $querry="UPDATE idJobOffer SET".$idJobOffer."WHERE idStudent=".$idSudent;
+                $this->connection->CONNECTION::GetInstance();
+                $this->connection->Execute($querry);
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
+        }
     }
 ?>

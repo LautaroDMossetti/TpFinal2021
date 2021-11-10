@@ -60,9 +60,6 @@
             </table>
         </div>
     </section>
-<<<<<<< HEAD
-</main>
-=======
 </main>
 <?php
     require_once('footer.php');
@@ -73,4 +70,3 @@
         $homeController->Index("Acceso no autorizado");
     }
 ?>
->>>>>>> 7598659b62f5917367bbdc8f122c57a47cdeb58c
