@@ -22,12 +22,14 @@
 
                 $jobOffer = new JobOffer();
 
-                $jobOffer->setIdJobOffer($resultSet[0]["IdJobOffer"]);
-                $jobOffer->setIdJobPosition($resultSet[0]["idJobPosition"]);
-                $jobOffer->setIdCompany($resultSet[0]["idCompany"]);
-                $jobOffer->setDetalle($resultSet[0]["detalle"]);
-                $jobOffer->setFecha($resultSet[0]["fecha"]);
-
+                if($resultSet != null){  
+                    $jobOffer->setIdJobOffer($resultSet[0]["IdJobOffer"]);
+                    $jobOffer->setIdJobPosition($resultSet[0]["idJobPosition"]);
+                    $jobOffer->setIdCompany($resultSet[0]["idCompany"]);
+                    $jobOffer->setDetalle($resultSet[0]["detalle"]);
+                    $jobOffer->setFecha($resultSet[0]["fecha"]);
+                }
+                
                 return $jobOffer;
             }
             catch(Exception $ex)

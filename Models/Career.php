@@ -43,7 +43,7 @@
         }
 
         public function toString(){
-                return "careerId = " . $this->getCareerId() . ", description = " . $this->getDescription() . ", active = " . $this->getActive();
+                return "description = " . $this->getDescription() . ", active = " . $this->getActive();
         }
     }
 ?>

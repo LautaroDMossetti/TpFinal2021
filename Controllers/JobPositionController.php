@@ -26,6 +26,11 @@
             require_once(VIEWS_PATH."JobPositionView.php");
         }
 
+        public function UpdateDatabase($APIData){
+            $this->jobPositionDAO->updateDatabase($APIData);
+        }
+
+        /*
         public function ValidateJobPositionsAgainstAPI($APIData){
             try{
                 $this->jobPositionDAO->validateJobPositionsAgainstAPI($APIData);
@@ -34,6 +39,7 @@
                 throw $ex;
             }
         }
+        */
 
         /*
         //Funcion para recibir datos desde a la API y guardarlos en una BD;

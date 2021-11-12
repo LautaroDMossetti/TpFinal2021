@@ -16,17 +16,18 @@ require_once('header.php');
 
             <button type="submit">Login</button>
         </form>
+        <div style="display: inline;">
+        <form action="<?php echo FRONT_ROOT ?>Account/ShowSignInView" method="POST" style="margin-top: 100px;">
+            <strong>Si es tu primera vez ingresando -></strong>
+            <button type="submit" style="display: inline;">Registrarse</button>
+        </form>
+        </div>
     </div>
 
     <?php
     if($alert != null && $alert instanceof Alert){
         ?>
         <h5 class="alert-<?php echo $alert->getType();?>" > <?php echo $alert->getMessage(); ?></h5>
-        <?php
-    }
-    if($alert2 != null && $alert2 instanceof Alert){
-        ?>
-        <h5 class="alert-<?php echo $alert2->getType();?>" > <?php echo $alert2->getMessage(); ?></h5>
         <?php
     }
     ?>

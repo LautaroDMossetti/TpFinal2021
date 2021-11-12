@@ -32,6 +32,11 @@
         <h5 class="alert-<?php echo $alert->getType();?>" > <?php echo $alert->getMessage(); ?></h5>
         <?php
     }
+    if($alert != null && $alert2 instanceof Alert){
+        ?>
+        <h5 class="alert-<?php echo $alert2->getType();?>" > <?php echo $alert2->getMessage(); ?></h5>
+        <?php
+    }
     ?>
 
 <?php

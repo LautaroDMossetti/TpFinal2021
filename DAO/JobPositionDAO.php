@@ -104,6 +104,72 @@
             }
         }
 
+        public function modifyByDescription($modifiedJobPosition){
+            try
+            {
+                $query = "UPDATE ".$this->tableName." SET careerId = :careerId WHERE description=:description;";
+
+                $parameters['description'] = $modifiedJobPosition->getDescription();
+                $parameters['careerId'] = $modifiedJobPosition->getCareerId();
+
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+        public function getOneByDescription($description){
+            try{
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE description=:description;";
+
+                $parameters['description'] = $description;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+                   
+                $jobPosition = new JobPosition();
+
+                if($resultSet != null){
+                    $jobPosition->setJobPositionId($resultSet[0]["jobPositionId"]);
+                    $jobPosition->setCareerId($resultSet[0]["careerId"]);
+                    $jobPosition->setDescription($resultSet[0]["description"]);
+                }
+
+                return $jobPosition;
+            }catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
+        //Funcion para actualizar la base de datos comparando con la API
+        public function updateDatabase($APIData){
+            try{
+                foreach($APIData as $row){
+                    $APIJobPosition = new JobPosition();
+                    $APIJobPosition->setJobPositionId($row['jobPositionId']);
+                    $APIJobPosition->setCareerId($row['careerId']);
+                    $APIJobPosition->setDescription($row['description']);
+
+                    $DBJobPosition = $this->getOneByDescription($APIJobPosition->getDescription());
+
+                    if($DBJobPosition->getDescription() != null && strcmp($DBJobPosition->toString(),$APIJobPosition->toString()) != 0){
+                        $this->modifyByDescription($APIJobPosition);
+                    }elseif($DBJobPosition->getDescription() == null){
+                        $this->add($APIJobPosition);
+                    }
+                }
+            }catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function getOne($id){
             try
             {
@@ -117,9 +183,11 @@
 
                 $jobPosition = new JobPosition();
 
-                $jobPosition->setJobPositionId($resultSet[0]["jobPositionId"]);
-                $jobPosition->setCareerId($resultSet[0]["careerId"]);
-                $jobPosition->setDescription($resultSet[0]["description"]);
+                if($resultSet != null){  
+                    $jobPosition->setJobPositionId($resultSet[0]["jobPositionId"]);
+                    $jobPosition->setCareerId($resultSet[0]["careerId"]);
+                    $jobPosition->setDescription($resultSet[0]["description"]);
+                }
 
                 return $jobPosition;
             }
@@ -134,6 +202,7 @@
             {
                 $query = "UPDATE ".$this->tableName." SET careerId = :careerId, description = :description WHERE jobPositionId=:jobPositionId;";
 
+                $parameters['jobPositionId'] = $modifiedJobPosition->getJobPositionId();
                 $parameters['careerId'] = $modifiedJobPosition->getCareerId();
                 $parameters['description'] = $modifiedJobPosition->getDescription();
 
@@ -145,28 +214,6 @@
             {
                 throw $ex;
             }
-        }
-
-        public function validateJobPositionsAgainstAPI($APIData){
-            try{
-                foreach($APIData as $row){
-                    $APIJobPosition = new JobPosition();
-                    $APIJobPosition->setJobPositionId($row['jobPositionId']);
-                    $APIJobPosition->setCareerId($row['careerId']);
-                    $APIJobPosition->setDescription($row['description']);
-
-
-                    $DBJobPosition = $this->getOne($row['jobPositionId']);
-
-                    if($DBJobPosition != null && strcmp($DBJobPosition->toString(),$APIJobPosition->toString()) != 0){
-                        $this->modify($APIJobPosition);
-                    }
-                }
-            }catch(Exception $ex)
-            {
-                throw $ex;
-            }
-
         }
 
         /*

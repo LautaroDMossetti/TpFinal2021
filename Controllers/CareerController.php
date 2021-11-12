@@ -14,6 +14,11 @@
             $this->careerDAO = new CareerDAO();
         }
 
+        public function UpdateDatabase($APIData){
+            $this->careerDAO->updateDatabase($APIData);
+        }
+
+        /*
         public function ValidateCareersAgainstAPI($APIData){
             try{
                 $this->careerDAO->validateCareersAgainstAPI($APIData);
@@ -23,6 +28,7 @@
             }
             
         }
+        */
 
         /*
         //Funcion para recibir datos desde a la API y guardarlos en una BD;

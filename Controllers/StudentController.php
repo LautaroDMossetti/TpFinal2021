@@ -14,6 +14,10 @@
             $this->studentDao = new StudentDao();
         }
 
+        public function Add($newStudent){
+            $this->studentDao->add($newStudent);
+        }
+
         public function GetAllStudents(){
             try{
                 $studentList = $this->studentDao->getAll();
@@ -24,6 +28,7 @@
             }
         }
 
+        /*
         public function ValidateStudentsAgainstAPI($APIData){
             try{
                 $this->studentDao->validateStudentsAgainstAPI($APIData);
@@ -32,6 +37,7 @@
                 throw $ex;
             }
         }
+        */
 
         /*
         //Funcion para recibir datos desde a la API y guardarlos en una BD;

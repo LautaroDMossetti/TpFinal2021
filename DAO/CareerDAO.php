@@ -28,6 +28,79 @@
             }
         }
 
+        //Modificar una linea buscando el objetivo por [description]
+        public function modifyByDescription($modifiedCareer){
+            try
+            {
+                $query = "UPDATE ".$this->tableName." SET active = :active WHERE description=:description;";
+
+                $parameters['description'] = $modifiedCareer->getDescription();
+                $parameters['active'] = $modifiedCareer->getActive();
+
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
+        //Funcion para actualizar la base de datos comparando con la API
+        public function updateDatabase($APIData){
+            try{
+                foreach($APIData as $row){
+                    $APICareer = new Career();
+                    $APICareer->setCareerId($row['careerId']);
+                    $APICareer->setDescription($row['description']);
+
+                    if($row["active"]){
+                        $APICareer->setActive(1);
+                    }else{
+                        $APICareer->setActive(0);
+                    }
+
+                    $DBCareer = $this->getOneByDescription($APICareer->getDescription());
+
+                    if($DBCareer->getDescription() != null && strcmp($DBCareer->toString(),$APICareer->toString()) != 0){
+                        $this->modifyByDescription($APICareer);
+                    }elseif($DBCareer->getDescription() == null){
+                        $this->add($APICareer);
+                    }
+                }
+            }catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
+        public function getOneByDescription($description){
+            try{
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE description=:description;";
+
+                $parameters['description'] = $description;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+                   
+                $career = new Career();
+
+                if($resultSet != null){
+                    $career->setCareerId($resultSet[0]["careerId"]);
+                    $career->setDescription($resultSet[0]["description"]);
+                    $career->setActive($resultSet[0]["active"]);
+                }
+
+                return $career;
+            }catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function filterByDescription($description){
             try{
                 $careerList = array();
@@ -118,9 +191,11 @@
 
                 $career = new Career();
 
-                $career->setcareerId($resultSet[0]["careerId"]);
-                $career->setDescription($resultSet[0]["description"]);
-                $career->setActive($resultSet[0]["active"]);
+                if($resultSet != null){    
+                    $career->setCareerId($resultSet[0]["careerId"]);
+                    $career->setDescription($resultSet[0]["description"]);
+                    $career->setActive($resultSet[0]["active"]);
+                }
 
                 return $career;
             }
@@ -135,6 +210,7 @@
             {
                 $query = "UPDATE ".$this->tableName." SET description = :description, active = :active WHERE careerId=:careerId;";
 
+                $parameters['careerId'] = $modifiedCareer->getCareerId();
                 $parameters['description'] = $modifiedCareer->getDescription();
                 $parameters['active'] = $modifiedCareer->getActive();
 
@@ -146,32 +222,6 @@
             {
                 throw $ex;
             }
-        }
-
-        public function validateCareersAgainstAPI($APIData){
-            try{
-                foreach($APIData as $row){
-                    $APICareer = new Career();
-                    $APICareer->setCareerId($row['careerId']);
-                    $APICareer->setDescription($row['description']);
-
-                    if($row["active"]){
-                        $APICareer->setActive(1);
-                    }else{
-                        $APICareer->setActive(0);
-                    }
-
-                    $DBCareer = $this->getOne($row['careerId']);
-
-                    if($DBCareer != null && strcmp($DBCareer->toString(),$APICareer->toString()) != 0){
-                        $this->modify($APICareer);
-                    }
-                }
-            }catch(Exception $ex)
-            {
-                throw $ex;
-            }
-
         }
 
         /*

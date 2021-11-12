@@ -17,11 +17,19 @@
         public function GetAllStudents(){
             $APIData = $this->API->getAllStudents();
 
+            if($APIData == null || key($APIData) != 0){
+                return false;
+            }
+
             return $APIData;
         }
 
         public function GetAllCareers(){
             $APIData = $this->API->getAllCareers();
+
+            if($APIData == null || key($APIData) != 0){
+                return false;
+            }
 
             return $APIData;
         }
@@ -29,9 +37,14 @@
         public function GetAllJobPositions(){
             $APIData = $this->API->getAllJobPositions();
 
+            if($APIData == null || key($APIData) != 0){
+                return false;
+            }
+
             return $APIData;
         }
 
+        /*
         public function ValidateDatabase($APIStudents, $APICareers, $APIJobPositions){
             try{
                 $studentController = new StudentController();
@@ -47,6 +60,7 @@
             }
 
         }
+        */
 
         /*
         public function TransferStudentsToDB(){
