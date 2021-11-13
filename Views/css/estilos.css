@@ -16,6 +16,10 @@ body {
      height: 100%;
 }
 
+button {
+     border-radius: 5px;
+}
+
 .bg-dark-alpha {
      background-color: rgba(0,0,0,0.2);
 }
@@ -41,4 +45,9 @@ body {
 .alert-warning {
      text-align: center;
      background-color: rgb(220, 226, 137);
+}
+
+.alert-progress {
+     text-align: center;
+     background-color: rgb(59, 61, 138);
 }

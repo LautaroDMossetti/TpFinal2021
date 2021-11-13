@@ -3,6 +3,9 @@
     use Controllers\HomeController as HomeController;
     use Models\Admin as Admin;
     use Models\Alert as Alert;
+    use Models\Student as Student;
+    use Models\CompanyUser as CompanyUser;
+    use Controllers\CompanyController as CompanyController;
 
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
@@ -16,12 +19,15 @@
 
     if($loggedUser instanceof Admin){
         ?> <h2>Welcome, Admin <?php echo $loggedUser->getAdminId()?></h2> <?php
-    }else{
+    }elseif($loggedUser instanceof Student){
         ?>
             <h2>Welcome, <?php echo $loggedUser->getFirstname() . ' ' . $loggedUser->getLastName(); ?></h2>
-        
-            <br>
         <?php
+    }elseif($loggedUser instanceof CompanyUser){
+        $companyController = new CompanyController();
+        $userCompany = $companyController->GetOne($loggedUser->getCompanyId());
+
+        ?> <h2>Welcome, <?php echo $userCompany->getNombre()?> Company</h2> <?php
     }
     ?>    
     </div>

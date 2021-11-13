@@ -2,8 +2,8 @@
     namespace Controllers;
 
     use DAO\CompanyDao as CompanyDao;
-    use Exception;
-    use Models\Company;
+    use Exception as Exception;
+    use Models\Company as Company;
     use Models\Alert as Alert;
 
     class CompanyController{
@@ -12,6 +12,20 @@
         public function __construct()
         {
             $this->companyDao = new CompanyDao();
+        }
+
+        public function GetAll(){
+            $companyList = array();
+            $companyList = $this->companyDao->getAll();
+            
+            return $companyList;
+        }
+
+        public function GetOne($id){
+            $company = new Company();
+            $company = $this->companyDao->getOne($id);
+
+            return $company;
         }
         
         public function ShowListView($alert = ""){
@@ -24,10 +38,23 @@
             require_once(VIEWS_PATH."CompanyAdd.php");
         }
 
-        public function ShowModifyView($id){
+        public function ShowModifyView($id, $alert = ""){
+            $companyToModify = $this->companyDao->getOne($id);
             require_once(VIEWS_PATH."CompanyModify.php");
         }
         
+        public function AddFromController($cuit, $nombre, $estado, $companyLink, $descripcion){
+            $newCompany = new Company();
+
+            $newCompany->setNombre($nombre);
+            $newCompany->setCuit($cuit);
+            $newCompany->setEstado($estado);
+            $newCompany->setCompanyLink($companyLink);
+            $newCompany->setDescripcion($descripcion);
+
+            $this->companyDao->add($newCompany);
+        }
+
         public function Add($link,$cuit,$nombre,$descripcion,$estado){
             $alert = new Alert("", "");
             
@@ -71,7 +98,7 @@
         }
 
         public function GetOneByName($nombre){
-            $company = null;
+            $company = new Company();
 
             try{
                 $company = $this->companyDao->getOneByName($nombre);
@@ -81,6 +108,44 @@
                 return $company;
             }
 
+        }
+
+        public function GetOneByCuit($cuit){
+            $company = new Company();
+
+            try{
+                $company = $this->companyDao->getOneByCuit($cuit);
+            }catch(Exception $ex){
+                throw $ex;
+            }finally{
+                return $company;
+            }
+
+        }
+
+        public function SelfModify($id, $nombre, $descripcion, $cuit, $estado, $companyLink){
+            $alert = new Alert("", "");
+            
+            try{
+                $modifiedCompany = new Company();
+
+                $modifiedCompany->setCompanyId($id);
+                $modifiedCompany->setNombre($nombre);
+                $modifiedCompany->setDescripcion($descripcion);
+                $modifiedCompany->setCuit($cuit);
+                $modifiedCompany->setEstado($estado);
+                $modifiedCompany->setCompanyLink($companyLink);
+
+                $this->companyDao->modify($modifiedCompany);
+
+                $alert->setType("success");
+                $alert->setMessage("Modificacion realizada con exito");
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                $this->ShowModifyView($modifiedCompany->getCompanyId(), $alert);
+            }
         }
 
         public function Modify($id, $nombre, $descripcion, $cuit, $estado, $companyLink){

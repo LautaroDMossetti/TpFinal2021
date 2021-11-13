@@ -3,7 +3,7 @@
 
     use Controllers\CompanyController as CompanyController;
     use DAO\JobOfferDao as JobOfferDao;
-    use Models\JobOffer;
+    use Models\JobOffer as JobOffer;
     use Models\Alert as Alert;
     use \Exception as Exception;
 

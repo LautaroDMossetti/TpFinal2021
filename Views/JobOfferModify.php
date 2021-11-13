@@ -3,12 +3,12 @@
     use DAO\CompanyDAO;
     use Controllers\HomeController as HomeController;
     use DAO\JobOfferDao;
-    use Models\JobOffer;
     use Models\Alert as Alert;
 
     $companyDao=New CompanyDAO;
     $JobOfferDao=new JobOfferDao;
     $JobOffer=$JobOfferDao->SerchByJob($id);
+
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
 

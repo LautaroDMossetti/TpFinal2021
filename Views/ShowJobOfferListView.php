@@ -8,8 +8,6 @@ use Models\Alert as Alert;
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
 
-        
-
         require_once('header.php');
         require_once("nav.php");
     

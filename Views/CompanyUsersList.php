@@ -1,11 +1,14 @@
 <?php
 
+    use Controllers\CompanyController;
     use Controllers\HomeController as HomeController;
     use Models\Admin as Admin;
     use Models\Alert as Alert;
 
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
+
+        $companyController = new CompanyController();
 
     require_once('header.php');
     require_once("nav.php");
@@ -22,15 +25,15 @@
 
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Listado de Empresas</h2>
+            <h2 class="mb-4">Listado de Usuarios Empresa</h2>
 
-            <form action="<?php echo FRONT_ROOT ?>Company/FilterByName" style="display: inline;">
-                <input type="text" name="nombre" placeholder="Buscar por nombre">
+            <form action="<?php echo FRONT_ROOT ?>CompanyUser/FilterByEmail" style="display: inline;">
+                <input type="text" name="email" placeholder="Buscar por email">
             </form>
             <?php if($loggedUser instanceof Admin){
                 ?>
-                    <form action="<?php echo FRONT_ROOT ?>Company/ShowAddView" style="display: inline;">
-                        <button type="submit">Crear Empresa</button>
+                    <form action="<?php echo FRONT_ROOT ?>CompanyUser/ShowAddView" style="display: inline;">
+                        <button type="submit">Crear Usuario Empresa</button>
                     </form>
                 <?php
                 }
@@ -38,32 +41,34 @@
             <table class="table bg-light-alpha">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Empresa</th>
                         <th>Cuit</th>
-                        <th>Link</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                        if(isset($companyList)){
-                            foreach($companyList as $row){
+                        if(isset($companyUsersList)){
+                            foreach($companyUsersList as $row){
+                                $userCompany = $companyController->GetOne($row->getCompanyId());
+
                                 ?>
                                     <tr>
-                                        <td><?php echo $row->getNombre();?></td>
-                                        <td><?php echo $row->getCuit();?></td>
-                                        <td><?php echo $row->getCompanyLink();?></td>
+                                        <td><?php echo $row->getEmail();?></td>
+                                        <td><?php echo $userCompany->getNombre();?></td>
+                                        <td><?php echo $userCompany->getCuit();?></td>
                                         <td>
                                             <form action="<?php echo FRONT_ROOT ?>Company/ShowCompanyProfileView" method="POST" style="display: inline;">
-                                                <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Ver Perfil</button>
+                                                <button type="submit" name="id" value="<?php echo $userCompany->getCompanyId(); ?>">Ver Perfil</button>
                                             </form>
 
                                             <?php if($loggedUser instanceof Admin){
                                                 ?>
-                                                    <form action="<?php echo FRONT_ROOT ?>Company/ShowModifyView" method="POST" style="display: inline;">
-                                                        <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Modificar</button>
+                                                    <form action="<?php echo FRONT_ROOT ?>CompanyUser/ShowModifyView" method="POST" style="display: inline;">
+                                                        <button type="submit" name="id" value="<?php echo $row->getCompanyUserId(); ?>">Modificar</button>
                                                     </form>
-                                                    <form action="<?php echo FRONT_ROOT ?>Company/Remove" method="POST" style="display: inline;">
-                                                        <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Eliminar</button>
+                                                    <form action="<?php echo FRONT_ROOT ?>CompanyUser/Remove" method="POST" style="display: inline;">
+                                                        <button type="submit" name="id" value="<?php echo $row->getCompanyUserId(); ?>">Eliminar</button>
                                                     </form>
                                                 <?php
                                             }

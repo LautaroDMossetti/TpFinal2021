@@ -1,7 +1,7 @@
 <?php
-    use Controllers\AccountController as AccountController;
     use Models\Admin as Admin;
     use Models\Student as Student;
+    use Models\CompanyUser as CompanyUser;
 ?>
 
 <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
@@ -14,25 +14,42 @@
         if($loggedUser instanceof Student){
             ?>
             
-            <form action="<?php echo FRONT_ROOT ?>Account/ShowProfileView" method="GET">
-                <button type="submit" class="btn btn-dark ml-auto d-block">Perfil</button>
+            <form action="<?php echo FRONT_ROOT ?>Student/ShowStudentProfileView" method="GET">
+                <button type="submit" class="btn btn-dark ml-auto d-block" name="id" value="<?php echo $loggedUser->getStudentId();?>">Perfil</button>
             </form>
 
             <?php
         }
+        if($loggedUser instanceof CompanyUser){
+            ?>
+            
+            <form action="<?php echo FRONT_ROOT ?>Company/ShowCompanyProfileView" method="GET">
+                <button type="submit" name="id" value="<?php echo $loggedUser->getCompanyId();?>" class="btn btn-dark ml-auto d-block">Perfil</button>
+            </form>
+
+            <?php
+        }
+
+        
     ?>
 
-    <form action="<?php echo FRONT_ROOT ?>Company/ShowListView" method="GET">
-        <button type="submit" class="btn btn-dark ml-auto d-block">Listar Empresas</button>
-    </form>
+    <?php
+    if(! $loggedUser instanceof Admin){
+        ?>
+            <form action="<?php echo FRONT_ROOT ?>Company/ShowListView" method="GET">
+                <button type="submit" class="btn btn-dark ml-auto d-block">Listar Empresas</button>
+            </form>
+        <?php
+    }
+    ?>
     
     <?php
 
         if($loggedUser instanceof Admin){
             ?>
             
-            <form action="<?php echo FRONT_ROOT ?>Company/ShowAddView" method="GET">
-                <button type="submit" class="btn btn-dark ml-auto d-block">Agregar Empresa</button>
+            <form action="<?php echo FRONT_ROOT ?>Admin/ShowAdminView" method="GET">
+                <button type="submit" class="btn btn-dark ml-auto d-block">Gestion</button>
             </form>
 
             <?php

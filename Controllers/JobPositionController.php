@@ -3,7 +3,7 @@
 
     use Models\JobPosition as JobPosition;
     use Models\Alert as Alert;
-    use Exception;
+    use Exception as Exception;
     use DAO\JobPositionDAO as JobPositionDAO;
 
     class JobPositionController{

@@ -53,6 +53,45 @@
             }
         }
 
+        public function filterByLastName($lastName){
+            try{
+                $studentList = array();
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE lastName LIKE :lastName;";
+
+                $parameters['lastName'] = '%'.$lastName.'%';
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+
+                foreach ($resultSet as $row)
+                {                
+                    $student = new Student();
+
+                    $student->setStudentId($row["studentId"]);
+                    $student->setCareerId($row["careerId"]);
+                    $student->setFirstName($row["firstName"]);
+                    $student->setLastName($row["lastName"]);
+                    $student->setDni($row["dni"]);
+                    $student->setFileNumber($row["fileNumber"]);
+                    $student->setGender($row["gender"]);
+                    $student->setBirthDate($row["birthDate"]);
+                    $student->setEmail($row["email"]);
+                    $student->setPassword($row["password"]);
+                    $student->setPhoneNumber($row["phoneNumber"]);
+                    $student->setActive($row["active"]);
+
+                    array_push($studentList, $student);
+                }
+
+                return $studentList;
+            }catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function filterByName($nombre){
             try{
                 $studentList = array();

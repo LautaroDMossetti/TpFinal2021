@@ -138,6 +138,35 @@
             }
         }
 
+        public function getOneByCuit($cuit){
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableName." WHERE cuit=:cuit;";
+
+                $parameters['cuit'] = $cuit;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+
+                $company = new Company();
+
+                if($resultSet != null){  
+                    $company->setCompanyId($resultSet[0]["companyId"]);
+                    $company->setNombre($resultSet[0]["nombre"]);
+                    $company->setEstado($resultSet[0]["estado"]);
+                    $company->setCompanyLink($resultSet[0]["companyLink"]);
+                    $company->setCuit($resultSet[0]["cuit"]);
+                    $company->setDescripcion($resultSet[0]["descripcion"]);
+                }
+                return $company;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function modify($modifiedCompany){
             try
             {
@@ -180,7 +209,6 @@
             {
                 throw $ex;
             }
-
         }
 
         public function remove($id){

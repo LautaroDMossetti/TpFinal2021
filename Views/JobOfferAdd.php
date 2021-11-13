@@ -1,8 +1,8 @@
 <?php
 
     use Controllers\HomeController as HomeController;
-    use Models\Admin as Admin;
     use Models\Alert as Alert;
+
 
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];

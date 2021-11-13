@@ -15,34 +15,30 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripcion</th>
-            <th>Cuit</th>
-            <th>Estado</th>
-            <th>Link</th>
+            <th>ID Empresa</th>
+            <th>Email</th>
+            <th>Contraseña</th>
         </tr>
     </thead>
     <tbody>
         <?php
-            if(isset($companyToModify)){
-                if($loggedUser instanceof CompanyUser && $loggedUser->getCompanyId() == $companyToModify->getCompanyId()){
+            if(isset($companyUserToModify)){
+                if($loggedUser instanceof CompanyUser && $loggedUser->getCompanyUserId() == $companyUserToModify->getCompanyUserId()){
                     ?>
-                        <form action="<?php echo FRONT_ROOT ?>Company/SelfModify" method="POST">
+                        <form action="<?php echo FRONT_ROOT ?>CompanyUser/SelfModify" method="POST">
                     <?php
                 }else{
                     ?>
-                        <form action="<?php echo FRONT_ROOT ?>Company/Modify" method="POST">
+                        <form action="<?php echo FRONT_ROOT ?>CompanyUser/Modify" method="POST">
                     <?php
                 }
                 
                 ?>
                         <tr>
-                            <td><input type="number" name="id" value="<?php echo $companyToModify->getCompanyId();?>" readonly></td>
-                            <td><input type="text" name="nombre" value="<?php echo $companyToModify->getNombre();?>"></td>
-                            <td><input type="text" name="descripcion" value="<?php echo $companyToModify->getDescripcion();?>"></td>
-                            <td><input type="number" name="cuit" value="<?php echo $companyToModify->getCuit();?>" <?php if(! $loggedUser instanceof Admin){ ?> readonly <?php } ?>></td>
-                            <td><input type="text" name="estado" value="<?php echo $companyToModify->getEstado();?>"></td>
-                            <td><input type="text" name="companyLink" value="<?php echo $companyToModify->getCompanyLink();?>"></td>
+                            <td><input type="number" name="id" value="<?php echo $companyUserToModify->getCompanyUserId();?>" readonly></td>
+                            <td><input type="number" name="companyId" value="<?php echo $companyUserToModify->getCompanyId();?>" <?php if(! $loggedUser instanceof Admin){ ?> readonly <?php } ?>></td>
+                            <td><input type="text" name="email" value="<?php echo $companyUserToModify->getEmail();?>"></td>
+                            <td><input type="text" name="password" value="<?php echo $companyUserToModify->getPassword();?>"></td>
                         </tr>
                 <?php
             }
@@ -51,7 +47,7 @@
 </table>
     <button type="submit">Confirmar cambios</button>
                     </form>
-                    <?php if($loggedUser instanceof CompanyUser && $loggedUser->getCompanyId() == $companyToModify->getCompanyId()){
+                    <?php if($loggedUser instanceof CompanyUser && $loggedUser->getCompanyUserId() == $companyUserToModify->getCompanyUserId()){
                         ?>
                             <form action="<?php echo FRONT_ROOT ?>Company/ShowCompanyProfileView">
                                 <button type="submit" name="id" value="<?php echo $loggedUser->getCompanyId();?>">Volver</button>
@@ -59,7 +55,7 @@
                         <?php
                     }else{
                         ?>
-                            <form action="<?php echo FRONT_ROOT ?>Company/ShowListView">
+                            <form action="<?php echo FRONT_ROOT ?>CompanyUser/ShowListView">
                                 <button type="submit">Volver</button>
                             </form>
                         <?php

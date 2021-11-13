@@ -3,7 +3,7 @@
 
     use Models\Career as Career;
     use Models\Alert as Alert;
-    use Exception;
+    use Exception as Exception;
     use DAO\CareerDAO as CareerDAO;
 
     class CareerController{
@@ -16,6 +16,20 @@
 
         public function UpdateDatabase($APIData){
             $this->careerDAO->updateDatabase($APIData);
+        }
+
+        public function GetAll(){
+            $careersList = array();
+            $careersList = $this->careerDAO->getAll();
+            
+            return $careersList;
+        }
+
+        public function GetOne($id){
+            $career = new Career();
+            $career = $this->careerDAO->getOne($id);
+
+            return $career;
         }
 
         /*
