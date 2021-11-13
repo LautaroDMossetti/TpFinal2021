@@ -50,6 +50,25 @@
             require_once(VIEWS_PATH."CompanyUserAdd.php");
         }
 
+        public function ShowCompanyUserProfileView($id){
+            $alert = new Alert("", "");
+
+            try{
+                $companyController = new CompanyController();
+                $companyUser = new CompanyUser();
+                $company = new Company();
+
+                $companyUser = $this->companyUserDAO->getOne($id);
+                $company = $companyController->GetOne($companyUser->getCompanyId());
+
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                require_once(VIEWS_PATH.'CompanyProfile.php');
+            }
+        }
+
         public function SelfModify($id, $companyId, $email, $password){
             $alert = new Alert("", "");
             

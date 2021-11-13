@@ -13,15 +13,15 @@
     <div style="text-align: center; padding-top: 150px">
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" name="email">
+            <input type="text" name="email" required>
         </div>
         <div class="form-group">
             <label for="password">Contraseña</label>
-            <input type="password" name="password">
+            <input type="password" name="password" required>
         </div>
         <div class="form-group">
             <label for="companyId">Empresa</label>
-            <input list="companyId" name="companyId">
+            <input list="companyId" name="companyId" required>
             <datalist id="companyId">
                 <?php
                     if(isset($companiesList)){

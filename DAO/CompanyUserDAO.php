@@ -149,7 +149,7 @@
                     $companyUser->setEmail($resultSet[0]["email"]);
                     $companyUser->setPassword($resultSet[0]["password"]);
                 }
-                
+
                 return $companyUser;
             }
             catch(Exception $ex)

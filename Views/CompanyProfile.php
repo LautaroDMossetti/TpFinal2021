@@ -27,7 +27,7 @@
         <?php
         if($loggedUser instanceof CompanyUser && $loggedUser->getCompanyId() == $company->getCompanyId()){
             ?>
-            <li style="margin: 2px; background: white;">Email: <?php echo $loggedUser->getEmail(); ?></li>
+            <li style="margin: 2px; background: white;">Email: <?php echo $companyUser->getEmail(); ?></li>
             <?php
         }
         ?>

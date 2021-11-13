@@ -57,8 +57,8 @@ class StudentController{
             $careerController = new CareerController();
 
             $student = $this->studentDao->getOne($id);
-
             $studentCareer = $careerController->GetOne($student->getCareerId());
+            
             require_once(VIEWS_PATH."StudentProfile.php");
         }
 

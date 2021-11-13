@@ -49,8 +49,8 @@
                     </form>
                     <?php if($loggedUser instanceof CompanyUser && $loggedUser->getCompanyUserId() == $companyUserToModify->getCompanyUserId()){
                         ?>
-                            <form action="<?php echo FRONT_ROOT ?>Company/ShowCompanyProfileView">
-                                <button type="submit" name="id" value="<?php echo $loggedUser->getCompanyId();?>">Volver</button>
+                            <form action="<?php echo FRONT_ROOT ?>CompanyUser/ShowCompanyUserProfileView">
+                                <button type="submit" name="id" value="<?php echo $loggedUser->getCompanyUserId();?>">Volver</button>
                             </form>
                         <?php
                     }else{
