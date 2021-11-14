@@ -30,21 +30,6 @@
             <?php
         }
 
-        
-    ?>
-
-    <?php
-    if(! $loggedUser instanceof Admin){
-        ?>
-            <form action="<?php echo FRONT_ROOT ?>Company/ShowListView" method="GET">
-                <button type="submit" class="btn btn-dark ml-auto d-block">Empresas</button>
-            </form>
-        <?php
-    }
-    ?>
-    
-    <?php
-
         if($loggedUser instanceof Admin){
             ?>
             
@@ -54,11 +39,18 @@
 
             <?php
         }
-    ?>
 
-    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowListView" method="GET">
-        <button type="submit" class="btn btn-dark ml-auto d-block">Ofertas de Trabajo</button>
-    </form>
+        if(! $loggedUser instanceof Admin){
+            ?>
+                <form action="<?php echo FRONT_ROOT ?>Company/ShowListView" method="GET">
+                    <button type="submit" class="btn btn-dark ml-auto d-block">Empresas</button>
+                </form>
+                <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowListView" method="GET">
+                    <button type="submit" class="btn btn-dark ml-auto d-block">Ofertas de Trabajo</button>
+                </form>
+            <?php
+        }
+    ?>
     
     <div style="position: absolute; right: 20px;">
         <form action="<?php echo FRONT_ROOT ?>Account/Logout" method="GET">

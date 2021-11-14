@@ -1,45 +1,81 @@
 <?php
     namespace Models;
     class JobOffer{
-        private $IdJobOffer;
-        private $idJobPosition;
-        private $idCompany;
-        private $detalle;
-        private $fecha;
+        private $jobOfferId;
+        private $jobPositionId;
+        private $companyId;
+        private $description;
+        private $publicationDate;
+        private $expirationDate;
         
-        public function getIdJobPosition(){
-            return $this->idJobPosition;
-        }
-        public function setIdJobPosition($id){
-            $this->idJobPosition=$id;
-        }
-        public function getIdCompany(){
-            return $this->idCompany;
-        }
-        public function setIdCompany($id){
-            $this->idCompany=$id;
-        }
-        public function getIdJobOffer(){
-            return $this->IdJobOffer;
-        }
-        public function setIdJobOffer($id){
-            $this->IdJobOffer=$id;
-        }
-        public function getFecha(){
-            return $this->fecha;
-        }
-        public function setFecha($fecha){
-            $this->fecha=$fecha;
+        public function getJobOfferId()
+        {
+                return $this->jobOfferId;
         }
 
-        public function getDetalle()
+        public function setJobOfferId($jobOfferId)
         {
-                return $this->detalle;
+                $this->jobOfferId = $jobOfferId;
+
+                return $this;
         }
 
-        public function setDetalle($detalle)
+        public function getJobPositionId()
         {
-                $this->detalle = $detalle;
+                return $this->jobPositionId;
+        }
+
+        public function setJobPositionId($jobPositionId)
+        {
+                $this->jobPositionId = $jobPositionId;
+
+                return $this;
+        }
+
+        public function getCompanyId()
+        {
+                return $this->companyId;
+        }
+
+        public function setCompanyId($companyId)
+        {
+                $this->companyId = $companyId;
+
+                return $this;
+        }
+
+        public function getDescription()
+        {
+                return $this->description;
+        }
+
+        public function setDescription($description)
+        {
+                $this->description = $description;
+
+                return $this;
+        }
+
+        public function getPublicationDate()
+        {
+                return $this->publicationDate;
+        }
+
+        public function setPublicationDate($publicationDate)
+        {
+                $this->publicationDate = $publicationDate;
+
+                return $this;
+        }
+
+        public function getExpirationDate()
+        {
+                return $this->expirationDate;
+        }
+
+        public function setExpirationDate($expirationDate)
+        {
+                $this->expirationDate = $expirationDate;
 
                 return $this;
         }

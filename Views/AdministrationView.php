@@ -13,13 +13,16 @@ use Models\Alert as Alert;
     <div style="text-align: center; padding-top: 150px">
         <h2>Tipos de Gestion</h2>
             <form action="<?php echo FRONT_ROOT ?>Student/ShowListView" method="GET" style="display: inline;">
-                <button type="submit">Listar Alumnos</button>
+                <button type="submit">Alumnos</button>
             </form>
             <form action="<?php echo FRONT_ROOT ?>Company/ShowListView" method="GET" style="display: inline;">
-                <button type="submit">Listar Empresas</button>
+                <button type="submit">Empresas</button>
             </form>
             <form action="<?php echo FRONT_ROOT ?>CompanyUser/ShowListView" method="GET" style="display: inline;">
-                <button type="submit">Listar Usuarios Empresa</button>
+                <button type="submit">Usuarios Empresa</button>
+            </form>
+            <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowListView" method="GET" style="display: inline;">
+                <button type="submit">Ofertas de Trabajo</button>
             </form>
     </div>
 </main>

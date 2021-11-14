@@ -50,6 +50,9 @@
             <form action="<?php echo FRONT_ROOT ?>Company/ShowModifyView" method="POST" style="display: inline;">
                 <button type="submit" name="id" value="<?php echo $loggedUser->getCompanyId(); ?>">Modificar Empresa</button>
             </form>
+            <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowPersonalListView" method="POST" style="display: inline;">
+                <button type="submit" name="id" value="<?php echo $loggedUser->getCompanyId(); ?>">Mis Ofertas de Trabajo</button>
+            </form>
         <?php
     }
     ?>

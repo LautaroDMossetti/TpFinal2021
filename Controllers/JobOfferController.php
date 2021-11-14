@@ -1,13 +1,18 @@
 <?php
     namespace Controllers;
 
+    use Controllers\JobPositionController as JobPositionController;
+    use Controllers\CareerController as CareerController;
     use Controllers\CompanyController as CompanyController;
+    use Controllers\CompanyUserController as CompanyUserController;
     use DAO\JobOfferDao as JobOfferDao;
-    use Models\JobOffer as JobOffer;
+    use Models\JobPosition as JobPosition;
     use Models\Alert as Alert;
     use \Exception as Exception;
+    use Models\Career;
+    use Models\JobOffer as JobOffer;
 
-    class JobOfferController{
+class JobOfferController{
         private $jobOfferDao;
 
         public function __construct()
@@ -15,105 +20,184 @@
             $this->jobOfferDao = new JobOfferDao();
         }
 
-        public function ShowAddView($idJobPosition){
-            require_once(VIEWS_PATH."jobOfferAdd.php");
-        }
-
         public function ShowListView($alert = ""){
-            $jobOfferList = $this->jobOfferDao->GetAll();
+            $jobOfferList = array();
+            $jobOfferList = $this->jobOfferDao->getAll();
             require_once(VIEWS_PATH."ShowJobOfferListView.php");
         }
 
-        /*
-        public function ShowOfferByCompanyView($id){
-            $jobsList=$this->jobOfferDao->serchByCompany($id);
-            require_once(VIEWS_PATH."ShowJobOfferListView.php");
+        public function ShowPersonalListView($id,$alert = ""){
+            $jobOfferList = array();
+            $jobOfferList = $this->jobOfferDao->filterByCompanyId($id);
+            require_once(VIEWS_PATH."PersonalJobOfferList.php");
         }
 
-        public function ShowOfferByJobView($id){
-            $jobsList=$this->jobOfferDao->serchByJob($id);
-            require_once(VIEWS_PATH."ShowJobOfferListView.php");
-        }
-        
+        public function ShowModifyView($id, $alert = ""){
+            $jobPositionController = new JobPositionController();
+            $companyController = new CompanyController();
+            
+            $jobPositionList = $jobPositionController->GetAll();
+            $companyList = $companyController->GetAll();
 
-        public function ShowModifyView($idJobOffer){
+            $jobOfferToModify = $this->jobOfferDao->getOne($id);
+
             require_once(VIEWS_PATH."JobOfferModify.php");
         }
-        */
 
-        public function Remove($id){
+        public function ShowAddView($alert = ""){
+            $jobPositionController = new JobPositionController();
+            $companyController = new CompanyController();
+            
+            $jobPositionList = $jobPositionController->GetAll();
+            $companyList = $companyController->GetAll();
+
+            require_once(VIEWS_PATH."JobOfferAdd.php");
+        }
+
+        public function FilterByCareer($careerDescription){
             $alert = new Alert("", "");
 
+            try{
+                $jobOfferList = array();
+
+                $jobOfferList = $this->jobOfferDao->getAll();
+                
+                $alert->setType("success");
+                $alert->setMessage("Resultado de carreras de nombre ". $careerDescription);
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                require_once(VIEWS_PATH."ShowJobOfferListView.php");
+            }
+        }
+
+        public function Add($jobPositionId, $companyId, $description, $publicationDate, $expirationDate){
+            $alert = new Alert("", "");
+            
+            try{
+
+                $jobOffer = new JobOffer();
+
+                $jobOffer->setJobPositionId($jobPositionId);
+                $jobOffer->setCompanyId($companyId);
+                $jobOffer->setDescription($description);
+                $jobOffer->setPublicationDate($publicationDate);
+                $jobOffer->setExpirationDate($expirationDate);
+
+                $this->jobOfferDao->add($jobOffer);
+
+                $alert->setType("success");
+                $alert->setMessage("Oferta de Trabajo guardada con exito");
+            }
+            catch (Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                $this->showAddView($alert);
+            }
+        }
+
+        public function FilterByJobPosition($jobPositionDescription){
+            $alert = new Alert("", "");
+
+            try{
+                $jobOfferList = array();
+
+                $jobOfferList = $this->jobOfferDao->getAll();
+                
+                $alert->setType("success");
+                $alert->setMessage("Resultado de Puestos de nombre ". $jobPositionDescription);
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                require_once(VIEWS_PATH."ShowJobOfferListView.php");
+            }
+        }
+
+        public function SelfModify($id, $jobPositionId, $companyId, $description, $publicationDate, $expirationDate){
+            $alert = new Alert("", "");
+            
+            try{
+                $modifiedJobOffer = new JobOffer();
+
+                $modifiedJobOffer->setJobOfferId($id);
+                $modifiedJobOffer->setJobPositionId($jobPositionId);
+                $modifiedJobOffer->setCompanyId($companyId);
+                $modifiedJobOffer->setDescription($description);
+                $modifiedJobOffer->setPublicationDate($publicationDate);
+                $modifiedJobOffer->setExpirationDate($expirationDate);
+
+                $this->jobOfferDao->modify($modifiedJobOffer);
+
+                $alert->setType("success");
+                $alert->setMessage("Oferta de Trabajo modificada con exito");
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                $this->ShowPersonalListView($companyId, $alert);
+            }
+        }
+
+        public function Modify($id, $jobPositionId, $companyId, $description, $publicationDate, $expirationDate){
+            $alert = new Alert("", "");
+            
+            try{
+                $modifiedJobOffer = new JobOffer();
+
+                $modifiedJobOffer->setJobOfferId($id);
+                $modifiedJobOffer->setJobPositionId($jobPositionId);
+                $modifiedJobOffer->setCompanyId($companyId);
+                $modifiedJobOffer->setDescription($description);
+                $modifiedJobOffer->setPublicationDate($publicationDate);
+                $modifiedJobOffer->setExpirationDate($expirationDate);
+
+                $this->jobOfferDao->modify($modifiedJobOffer);
+
+                $alert->setType("success");
+                $alert->setMessage("Oferta de Trabajo modificada con exito");
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                $this->ShowListView($alert);
+            }
+        }
+
+        public function RemoveFromPersonalList($id, $companyId){
+            $alert = new Alert("", "");
+            $companyUserController = new CompanyUserController();
+            
             try{
                 $this->jobOfferDao->remove($id);
 
                 $alert->setType("success");
-                $alert->setMessage("Oferta de trabajo eliminada con exito");
-            }catch(Exception $ex)
-            {
+                $alert->setMessage("Oferta de Trabajo eliminada con exito");
+            }catch (Exception $ex){
                 $alert->setType("danger");
                 $alert->setMessage($ex->getMessage());
             }finally{
-                $this->ShowListView($alert);
+                $this->ShowPersonalListView($companyId, $alert);
             }
         }
 
-        public function Add($companyName,$idJobPosition,$fecha,$detalle){
+        public function Remove($id){
             $alert = new Alert("", "");
-
+            
             try{
-                $jobOffer=new JobOffer();
-
-                $companyController = new CompanyController();
-
-                $compny = $companyController->getOneByName($companyName);
-
-                if($compny != null){
-                    $jobOffer->setFecha($fecha);
-                    $jobOffer->setDetalle($detalle);
-                    $jobOffer->setIdCompany($compny->getCompanyId());
-                    $jobOffer->setIdJobPosition($idJobPosition);
-                    
-                    $this->jobOfferDao->Add($jobOffer); 
-
-                    $alert->setType("success");
-                    $alert->setMessage("Oferta de Trabajo guardada con exito");
-                }else{
-                    $alert->setType("danger");
-                    $alert->setMessage("Error al solicitar empresa");
-                }
-            }catch(Exception $ex)
-            {
-                $alert->setType("danger");
-                $alert->setMessage($ex->getMessage());
-            }finally{
-                $this->ShowListView($alert);
-            }
-        }
-
-        public function modify($IdJobOffer,$idCompany,$idJobPosition,$fecha,$detalle){
-            $alert = new Alert("", "");
-
-            try{
-                $joboffer=new JobOffer();
-
-                $joboffer->setIdJobOffer($IdJobOffer);
-                $joboffer->setFecha($fecha);
-                $joboffer->setDetalle($detalle);
-                $joboffer->setIdCompany($idCompany);
-                $joboffer->setIdJobPosition($idJobPosition);
-
-                $this->jobOfferDao->modify($joboffer);
+                $this->jobOfferDao->remove($id);
 
                 $alert->setType("success");
-                $alert->setMessage("Oferta de Trabajo modificada con exito");
-            }catch(Exception $ex)
-            {
+                $alert->setMessage("Oferta de Trabajo eliminada con exito");
+            }catch (Exception $ex){
                 $alert->setType("danger");
                 $alert->setMessage($ex->getMessage());
             }finally{
                 $this->ShowListView($alert);
             }
         }
+        
     }
 ?>

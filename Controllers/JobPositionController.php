@@ -19,6 +19,13 @@
             return $jobPositionList;
         }
 
+        public function GetOne($id){
+            $jobPosition = new JobPosition();
+            $jobPosition = $this->jobPositionDAO->getOne($id);
+
+            return $jobPosition;
+        }
+
         public function ShowListView(){
 
             $jobPositionList = $this->GetAll();

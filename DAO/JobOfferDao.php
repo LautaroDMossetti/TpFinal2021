@@ -8,13 +8,12 @@
         private $conection;
         private $tableName = "jobOffers";
 
-
         public function getOne($id){
             try
             {
-                $query = "SELECT * FROM ".$this->tableName." WHERE IdJobOffer=:IdJobOffer;";
+                $query = "SELECT * FROM ".$this->tableName." WHERE jobOfferId=:jobOfferId;";
 
-                $parameters['IdJobOffer'] = $id;
+                $parameters['jobOfferId'] = $id;
 
                 $this->connection = Connection::GetInstance();
 
@@ -23,13 +22,14 @@
                 $jobOffer = new JobOffer();
 
                 if($resultSet != null){  
-                    $jobOffer->setIdJobOffer($resultSet[0]["IdJobOffer"]);
-                    $jobOffer->setIdJobPosition($resultSet[0]["idJobPosition"]);
-                    $jobOffer->setIdCompany($resultSet[0]["idCompany"]);
-                    $jobOffer->setDetalle($resultSet[0]["detalle"]);
-                    $jobOffer->setFecha($resultSet[0]["fecha"]);
+                    $jobOffer->setJobOfferId($resultSet[0]["jobOfferId"]);
+                    $jobOffer->setJobPositionId($resultSet[0]["jobPositionId"]);
+                    $jobOffer->setCompanyId($resultSet[0]["companyId"]);
+                    $jobOffer->setDescription($resultSet[0]["description"]);
+                    $jobOffer->setPublicationDate($resultSet[0]["publicationDate"]);
+                    $jobOffer->setExpirationDate($resultSet[0]["expirationDate"]);
                 }
-                
+
                 return $jobOffer;
             }
             catch(Exception $ex)
@@ -38,107 +38,132 @@
             }
         }
 
-        public function GetAll(){
-            try{
-                $jobOfferList=array();
-                $querry="SELECT * FROM ".$this->tableName;
-                $this->conection=CONNECTION::GetInstance();
-                $result=$this->conection->Execute($querry);
-                foreach($result as $row){
-                    $job=new JobOffer();
-                    $job->setDetalle($row['detalle']);
-                    $job->setFecha($row['fecha']);
-                    $job->setIdJobOffer($row['IdJobOffer']);
-                    $job->setIdCompany($row['idCompany']);
-                    $job->setIdJobPosition($row['idJobPosition']);
-                    array_push($jobOfferList,$job);
+        public function getAll(){
+            try
+            {
+                $jobOfferList = array();
+
+                $query = "SELECT * FROM ".$this->tableName.";";
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query);
+
+                foreach ($resultSet as $row)
+                {                
+                    $jobOffer = new JobOffer();
+
+                    $jobOffer->setJobOfferId($row['jobOfferId']);
+                    $jobOffer->setJobPositionId($row["jobPositionId"]);
+                    $jobOffer->setCompanyId($row["companyId"]);
+                    $jobOffer->setDescription($row["description"]);
+                    $jobOffer->setPublicationDate($row["publicationDate"]);
+                    $jobOffer->setExpirationDate($row["expirationDate"]);
+                    
+                    array_push($jobOfferList, $jobOffer);
                 }
+                
                 return $jobOfferList;
             }
-            catch(Exception $ex){
-                throw($ex);
-            }
-        }
-        public function remove($id)
-        {
-            try{
-                
-                $querry="DELETE FROM ".$this->tableName." WHERE IdJobOffer=:IdJobOffer;";
-
-                $parameters['IdJobOffer'] = $id;
-
-                $this->conection=CONNECTION::GetInstance();
-                $this->conection->Execute($querry, $parameters);
-            }
-            catch(Exception $ex){
-                throw($ex);
-            }
-            
-        }
-        public function Add($jobOffer){
-            try{
-                $querry="INSERT INTO ".$this->tableName." (fecha, idCompany, detalle, idJobPosition) VALUES (:fecha, :idCompany, :detalle, :idJobPosition);";
-                $parameters["fecha"]=$jobOffer->getFecha();
-                $parameters["idCompany"]=$jobOffer->getIdCompany();
-                $parameters["detalle"]=$jobOffer->getDetalle();
-                $parameters["idJobPosition"]=$jobOffer->getIdJobPosition();
-                $this->conection=CONNECTION::GetInstance();
-                $this->conection->ExecuteNonQuery($querry,$parameters);
-
-                
-            }
-            catch(Exception $ex){
-                throw($ex);
-            }
-        }
-        public function serchByCompany($idCompany){
-            try{
-                $querry="SELECT * FROM ".$this->tableName." WHERE idCompany=:idCompany;";
-
-                $parameters['idCompany'] = $idCompany;
-
-                $this->conection=CONNECTION::GetInstance();
-                $result=$this->conection->Execute($querry, $parameters);
-
-                return $result;
-            }
-            catch(Exception $ex){
+            catch(Exception $ex)
+            {
                 throw $ex;
             }
         }
-        public function serchByJob($idJobPosition){
-            try{
-                $querry="SELECT * FROM ".$this->tableName." WHERE idJobPosition=:idJobPosition";
-
-                $parameters['idJobPosition'] = $idJobPosition;
-
-                $this->conection=CONNECTION::GetInstance();
-                $result=$this->conection->Execute($querry, $parameters);
-
-                return $result;
+        
+        public function remove($id){
+            try
+            {
+                $query = "DELETE FROM ".$this->tableName." WHERE jobOfferId=:jobOfferId;";
+                
+                $parameters['jobOfferId'] = $id;
+                
+                $this->connection = Connection::GetInstance();
+                
+                $this->connection->ExecuteNonQuery($query, $parameters);
             }
-            catch(Exception $ex){
+            catch(Exception $ex)
+            {
                 throw $ex;
             }
         }
-        public function modify($jobOffer){
-            try{
-                $querry="UPDATE ".$this->tableName." SET idCompany=:idCompany, fecha=:fecha, detalle=:detalle, idJobPosition=:idJobPosition WHERE IdJobOffer=:IdJobOffer;";
+        
+        public function add($newJobOffer){
+            try
+            {
+                $query = "INSERT INTO ".$this->tableName." (jobPositionId, companyId, description, publicationDate, expirationDate) VALUES (:jobPositionId, :companyId, :description, :publicationDate, :expirationDate);";
                 
-                $parameters['IdJobOffer'] = $jobOffer->getIdJobOffer();
-                $parameters['idCompany'] = $jobOffer->getIdCompany();
-                $parameters['fecha'] = $jobOffer->getFecha();
-                $parameters['detalle'] = $jobOffer->getDetalle();
-                $parameters['idJobPosition'] = $jobOffer->getIdJobPosition();
-
-                $this->conection=CONNECTION::GetInstance();
-                $this->conection->Execute($querry, $parameters);
+                $parameters['jobPositionId'] = $newJobOffer->getJobPositionId();
+                $parameters['companyId'] = $newJobOffer->getCompanyId();
+                $parameters['description'] = $newJobOffer->getDescription();
+                $parameters['publicationDate'] = $newJobOffer->getPublicationDate();
+                $parameters['expirationDate'] = $newJobOffer->getExpirationDate();
+                
+                $this->connection = Connection::GetInstance();
+                
+                $this->connection->ExecuteNonQuery($query, $parameters);
             }
-            catch(Exception $ex){
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
+        public function filterByCompanyId($id){
+            try
+            {
+                $jobOfferList = array();
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE companyId=:companyId;";
+
+                $parameters['companyId'] = $id;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+
+                foreach ($resultSet as $row)
+                {                
+                    $jobOffer = new JobOffer();
+
+                    $jobOffer->setJobOfferId($row['jobOfferId']);
+                    $jobOffer->setJobPositionId($row["jobPositionId"]);
+                    $jobOffer->setCompanyId($row["companyId"]);
+                    $jobOffer->setDescription($row["description"]);
+                    $jobOffer->setPublicationDate($row["publicationDate"]);
+                    $jobOffer->setExpirationDate($row["expirationDate"]);
+                    
+                    array_push($jobOfferList, $jobOffer);
+                }
+                
+                return $jobOfferList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+        
+        public function modify($modifiedJobOffer){
+            try
+            {
+                $query = "UPDATE ".$this->tableName." SET jobPositionId = :jobPositionId, companyId = :companyId, description = :description, publicationDate = :publicationDate, expirationDate = :expirationDate WHERE jobOfferId=:jobOfferId;";
+
+                $parameters['jobOfferId'] = $modifiedJobOffer->getJobOfferId();
+                $parameters['jobPositionId'] = $modifiedJobOffer->getJobPositionId();
+                $parameters['companyId'] = $modifiedJobOffer->getCompanyId();
+                $parameters['description'] = $modifiedJobOffer->getDescription();
+                $parameters['publicationDate'] = $modifiedJobOffer->getPublicationDate();
+                $parameters['expirationDate'] = $modifiedJobOffer->getExpirationDate();
+
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
                 throw $ex;
             }
         }
     }
-
-
 ?>

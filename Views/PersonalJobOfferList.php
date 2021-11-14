@@ -43,7 +43,7 @@ if(isset($_SESSION['loggedUser'])){
             <form action="<?php echo FRONT_ROOT ?>JobOffer/FilterByJobPosition" style="display: inline;">
                 <input type="text" name="jobPositionDescription" placeholder="Buscar por Puesto">
             </form>
-            <?php if($loggedUser instanceof Admin){
+            <?php if($loggedUser instanceof CompanyUser){
                 ?>
                     <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowAddView" style="display: inline;">
                         <button type="submit">Crear Oferta de Trabajo</button>
@@ -84,13 +84,14 @@ if(isset($_SESSION['loggedUser'])){
                                                 <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Mas Info</button>
                                             </form>
 
-                                            <?php if($loggedUser instanceof Admin){
+                                            <?php if($loggedUser instanceof CompanyUser){
                                                 ?>
                                                     <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>
                                                     </form>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/Remove" method="POST" style="display: inline;">
+                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/RemoveFromPersonalList" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Eliminar</button>
+                                                        <input type="hidden" name="companyId" value="<?php echo $company->getCompanyId(); ?>" readonly>
                                                     </form>
                                                 <?php
                                             }
@@ -112,13 +113,14 @@ if(isset($_SESSION['loggedUser'])){
                                                 <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Mas Info</button>
                                             </form>
 
-                                            <?php if($loggedUser instanceof Admin){
+                                            <?php if($loggedUser instanceof CompanyUser){
                                                 ?>
                                                     <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>
                                                     </form>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/Remove" method="POST" style="display: inline;">
+                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/RemoveFromPersonalList" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Eliminar</button>
+                                                        <input type="hidden" name="companyId" value="<?php echo $company->getCompanyId(); ?>" readonly>
                                                     </form>
                                                 <?php
                                             }
@@ -140,13 +142,14 @@ if(isset($_SESSION['loggedUser'])){
                                                 <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Mas Info</button>
                                             </form>
 
-                                            <?php if($loggedUser instanceof Admin){
+                                            <?php if($loggedUser instanceof CompanyUser){
                                                 ?>
                                                     <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>
                                                     </form>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/Remove" method="POST" style="display: inline;">
+                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/RemoveFromPersonalList" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Eliminar</button>
+                                                        <input type="hidden" name="companyId" value="<?php echo $company->getCompanyId(); ?>" readonly>
                                                     </form>
                                                 <?php
                                             }

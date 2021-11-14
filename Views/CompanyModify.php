@@ -39,7 +39,7 @@
                         <tr>
                             <td><input type="number" name="id" value="<?php echo $companyToModify->getCompanyId();?>" readonly></td>
                             <td><input type="text" name="nombre" value="<?php echo $companyToModify->getNombre();?>"></td>
-                            <td><input type="text" name="descripcion" value="<?php echo $companyToModify->getDescripcion();?>"></td>
+                            <td><input type="text" size="50" name="descripcion" value="<?php echo $companyToModify->getDescripcion();?>"></td>
                             <td><input type="number" name="cuit" value="<?php echo $companyToModify->getCuit();?>" <?php if(! $loggedUser instanceof Admin){ ?> readonly <?php } ?>></td>
                             <td><input type="text" name="estado" value="<?php echo $companyToModify->getEstado();?>"></td>
                             <td><input type="text" name="companyLink" value="<?php echo $companyToModify->getCompanyLink();?>"></td>

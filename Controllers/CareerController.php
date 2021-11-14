@@ -32,6 +32,13 @@
             return $career;
         }
 
+        public function FilterByDescription($description){
+            $careersList = array();
+            $careersList = $this->careerDAO->filterByDescription($description);
+            
+            return $careersList;
+        }
+
         /*
         public function ValidateCareersAgainstAPI($APIData){
             try{
