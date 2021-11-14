@@ -28,8 +28,27 @@ class JobOfferController{
 
         public function ShowPersonalListView($id,$alert = ""){
             $jobOfferList = array();
+            $companyController = new CompanyController();
+
             $jobOfferList = $this->jobOfferDao->filterByCompanyId($id);
-            require_once(VIEWS_PATH."PersonalJobOfferList.php");
+            $company = $companyController->GetOne($id);
+
+            require_once(VIEWS_PATH."CompanysJobOfferList.php");
+        }
+
+        public function ShowJobOfferDetailsView($id, $alert = ""){
+            $companyController = new CompanyController();
+            $jobPositionController = new JobPositionController();
+            $careerController = new CareerController();
+            $companyUserController = new CompanyUserController();
+        
+            $jobOffer = $this->jobOfferDao->getOne($id);
+            $company = $companyController->GetOne($jobOffer->getCompanyId());
+            $companyUser = $companyUserController->GetOneByCompanyId($company->getCompanyId());
+            $jobPosition = $jobPositionController->GetOne($jobOffer->getJobPositionId());
+            $career = $careerController->GetOne($jobPosition->getCareerId());
+
+            require_once(VIEWS_PATH."JobOfferDetailsView.php");
         }
 
         public function ShowModifyView($id, $alert = ""){
@@ -52,6 +71,22 @@ class JobOfferController{
             $companyList = $companyController->GetAll();
 
             require_once(VIEWS_PATH."JobOfferAdd.php");
+        }
+
+        public function GetOne($id){
+            $jobOffer = new JobOffer();
+
+            $jobOffer = $this->jobOfferDao->getOne($id);
+
+            return $jobOffer;
+        }
+
+        public function FilterByCompanyId($id){
+            $jobOfferList = array();
+
+            $jobOfferList = $this->jobOfferDao->filterByCompanyId($id);
+
+            return $jobOfferList;
         }
 
         public function FilterByCareer($careerDescription){

@@ -25,7 +25,7 @@
     <ul style="list-style-type: none; background: gray; width: 66%; margin: 2px">
         <li style="margin: 2px; background: white;">Nombre: <?php echo $company->getNombre(); ?></li>
         <?php
-        if($loggedUser instanceof CompanyUser && $loggedUser->getCompanyId() == $company->getCompanyId()){
+        if($loggedUser instanceof CompanyUser && $loggedUser->getCompanyId() == $company->getCompanyId() && isset($companyUser)){
             ?>
             <li style="margin: 2px; background: white;">Email: <?php echo $companyUser->getEmail(); ?></li>
             <?php
@@ -51,7 +51,7 @@
                 <button type="submit" name="id" value="<?php echo $loggedUser->getCompanyId(); ?>">Modificar Empresa</button>
             </form>
             <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowPersonalListView" method="POST" style="display: inline;">
-                <button type="submit" name="id" value="<?php echo $loggedUser->getCompanyId(); ?>">Mis Ofertas de Trabajo</button>
+                <button type="submit" name="id" value="<?php echo $loggedUser->getCompanyId(); ?>">Ver Ofertas de Trabajo</button>
             </form>
         <?php
     }

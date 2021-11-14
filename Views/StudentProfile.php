@@ -3,6 +3,7 @@
     use Controllers\HomeController as HomeController;
     use Models\Alert as Alert;
     use Models\Student as Student;
+    use Models\CompanyUser as CompanyUser;
 
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
@@ -30,6 +31,13 @@
         ?>
             <form action="<?php echo FRONT_ROOT ?>Student/ShowModifyView" method="POST" style="display: inline;">
                 <button type="submit" name="id" value="<?php echo $loggedUser->getStudentId(); ?>">Modificar</button>
+            </form>
+        <?php
+    }
+    if(! $loggedUser instanceof CompanyUser){
+        ?>
+            <form action="<?php echo FRONT_ROOT ?>Student/ShowStudentApplications" method="POST" style="display: inline;">
+                <button type="submit" name="id" value="<?php echo $student->getStudentId(); ?>">Ver Postulaciones</button>
             </form>
         <?php
     }

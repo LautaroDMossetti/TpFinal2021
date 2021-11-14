@@ -144,18 +144,20 @@
 
                 $student = new Student();
 
-                $student->setStudentId($resultSet[0]["studentId"]);
-                $student->setCareerId($resultSet[0]["careerId"]);
-                $student->setFirstName($resultSet[0]["firstName"]);
-                $student->setLastName($resultSet[0]["lastName"]);
-                $student->setDni($resultSet[0]["dni"]);
-                $student->setFileNumber($resultSet[0]["fileNumber"]);
-                $student->setGender($resultSet[0]["gender"]);
-                $student->setBirthDate($resultSet[0]["birthDate"]);
-                $student->setEmail($resultSet[0]["email"]);
-                $student->setPassword($resultSet[0]["password"]);
-                $student->setPhoneNumber($resultSet[0]["phoneNumber"]);
-                $student->setActive($resultSet[0]["active"]);
+                if($resultSet != null){
+                    $student->setStudentId($resultSet[0]["studentId"]);
+                    $student->setCareerId($resultSet[0]["careerId"]);
+                    $student->setFirstName($resultSet[0]["firstName"]);
+                    $student->setLastName($resultSet[0]["lastName"]);
+                    $student->setDni($resultSet[0]["dni"]);
+                    $student->setFileNumber($resultSet[0]["fileNumber"]);
+                    $student->setGender($resultSet[0]["gender"]);
+                    $student->setBirthDate($resultSet[0]["birthDate"]);
+                    $student->setEmail($resultSet[0]["email"]);
+                    $student->setPassword($resultSet[0]["password"]);
+                    $student->setPhoneNumber($resultSet[0]["phoneNumber"]);
+                    $student->setActive($resultSet[0]["active"]);
+                }
 
                 return $student;
             }

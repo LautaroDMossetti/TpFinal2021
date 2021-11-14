@@ -11,6 +11,7 @@ use DAO\JobPositionDao;
 use Models\Admin as Admin;
 use Models\Alert as Alert;
 use Models\CompanyUser as CompanyUser;
+use Models\Student as Student;
 
 if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
@@ -35,15 +36,17 @@ if(isset($_SESSION['loggedUser'])){
 
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Listado de Ofertas de Trabajo</h2>
+            <h2 class="mb-4">Listado de Ofertas de Trabajo de Empresa: <?php echo $company->getNombre(); ?></h2>
 
-            <form action="<?php echo FRONT_ROOT ?>JobOffer/FilterByCareer" style="display: inline;">
+            <form action="<?php echo FRONT_ROOT ?>CompanyUser/FilterJobOfferListByCareer" style="display: inline;">
                 <input type="text" name="careerDescription" placeholder="Buscar por Carrera">
+                <input type="hidden" name="companyId" value="<?php echo $company->getCompanyId();?>" readonly>
             </form>
-            <form action="<?php echo FRONT_ROOT ?>JobOffer/FilterByJobPosition" style="display: inline;">
+            <form action="<?php echo FRONT_ROOT ?>CompanyUser/FilterJobOfferListByJobPosition" style="display: inline;">
                 <input type="text" name="jobPositionDescription" placeholder="Buscar por Puesto">
+                <input type="hidden" name="companyId" value="<?php echo $company->getCompanyId();?>" readonly>
             </form>
-            <?php if($loggedUser instanceof Admin){
+            <?php if(! $loggedUser instanceof Admin && ! $loggedUser instanceof Student){
                 ?>
                     <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowAddView" style="display: inline;">
                         <button type="submit">Crear Oferta de Trabajo</button>
@@ -68,7 +71,6 @@ if(isset($_SESSION['loggedUser'])){
                             foreach($jobOfferList as $row){
                                 $jobPosition = $jobPositionController->GetOne($row->getJobPositionId());
                                 $career = $careerController->GetOne($jobPosition->getCareerId());
-                                $company = $companyController->GetOne($row->getCompanyId());
 
                                 if(isset($careerDescription) && stristr($career->getDescription(),$careerDescription) != false){
                                     ?>
@@ -84,7 +86,7 @@ if(isset($_SESSION['loggedUser'])){
                                                 <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Mas Info</button>
                                             </form>
 
-                                            <?php if($loggedUser instanceof Admin){
+                                            <?php if($loggedUser instanceof Admin || ($loggedUser instanceof CompanyUser && $loggedUser->getCompanyId() == $company->getCompanyId())){
                                                 ?>
                                                     <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>
@@ -112,7 +114,7 @@ if(isset($_SESSION['loggedUser'])){
                                                 <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Mas Info</button>
                                             </form>
 
-                                            <?php if($loggedUser instanceof Admin){
+                                            <?php if($loggedUser instanceof Admin || ($loggedUser instanceof CompanyUser && $loggedUser->getCompanyId() == $company->getCompanyId())){
                                                 ?>
                                                     <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>
@@ -140,7 +142,7 @@ if(isset($_SESSION['loggedUser'])){
                                                 <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Mas Info</button>
                                             </form>
 
-                                            <?php if($loggedUser instanceof Admin){
+                                            <?php if($loggedUser instanceof Admin || ($loggedUser instanceof CompanyUser && $loggedUser->getCompanyId() == $company->getCompanyId())){
                                                 ?>
                                                     <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>

@@ -6,7 +6,10 @@
     use Exception as Exception;
     use DAO\StudentDao as StudentDao;
     use Controllers\CareerController as CareerController;
+    use Controllers\StudentXJobOfferController as StudentXJobOfferController;
+    use Controllers\JobOfferController as JobOfferController;
     use Models\Career;
+use Models\JobOffer;
 
 class StudentController{
         private $studentDao;
@@ -60,6 +63,111 @@ class StudentController{
             $studentCareer = $careerController->GetOne($student->getCareerId());
             
             require_once(VIEWS_PATH."StudentProfile.php");
+        }
+
+        public function ShowStudentApplications($id, $alert = ""){
+            $studentXJobOfferController = new StudentXJobOfferController();
+            $jobOfferController = new JobOfferController();
+            
+            $student = $this->studentDao->getOne($id);
+            $applicationList = $studentXJobOfferController->FilterByStudentId($id);
+            
+            $jobOfferList = array();
+
+            foreach($applicationList as $row){
+                $jobOffer = $jobOfferController->GetOne($row->getJobOfferId());
+
+                array_push($jobOfferList, $jobOffer);
+            }
+
+            require_once(VIEWS_PATH."StudentApplicationView.php");
+        }
+
+        public function FilterApplicationListByJobPosition($jobPositionDescription, $id){
+            $alert = new Alert("", "");
+
+            try{
+                $studentXJobOfferController = new StudentXJobOfferController();
+                $jobOfferController = new JobOfferController();
+                
+                $student = $this->studentDao->getOne($id);
+                $applicationList = $studentXJobOfferController->FilterByStudentId($id);
+                
+                $jobOfferList = array();
+
+                foreach($applicationList as $row){
+                    $jobOffer = $jobOfferController->GetOne($row->getJobOfferId());
+
+                    array_push($jobOfferList, $jobOffer);
+                }
+                
+                $alert->setType("success");
+                $alert->setMessage("Resultado de Puestos de nombre ". $jobPositionDescription);
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                require_once(VIEWS_PATH."StudentApplicationView.php");
+            }
+        }
+
+        public function FilterApplicationListByCareer($careerDescription, $id){
+            $alert = new Alert("", "");
+
+            try{
+                $studentXJobOfferController = new StudentXJobOfferController();
+                $jobOfferController = new JobOfferController();
+                
+                $student = $this->studentDao->getOne($id);
+                $applicationList = $studentXJobOfferController->FilterByStudentId($id);
+                
+                $jobOfferList = array();
+
+                foreach($applicationList as $row){
+                    $jobOffer = $jobOfferController->GetOne($row->getJobOfferId());
+
+                    array_push($jobOfferList, $jobOffer);
+                }
+                
+                $alert->setType("success");
+                $alert->setMessage("Resultado de Carreras de nombre ". $careerDescription);
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                require_once(VIEWS_PATH."StudentApplicationView.php");
+            }
+        }
+
+        public function CancelApplication($id, $studentId){
+            $alert = new Alert("", "");
+
+            try{
+                $studentXJobOfferController = new StudentXJobOfferController();
+                $jobOfferController = new JobOfferController();
+                
+                $student = $this->studentDao->getOne($studentId);
+
+                $studentXJobOfferController->RemoveByBothIds($studentId, $id);
+
+                $applicationList = $studentXJobOfferController->FilterByStudentId($studentId);
+                
+                $jobOfferList = array();
+
+                foreach($applicationList as $row){
+                    $jobOffer = $jobOfferController->GetOne($row->getJobOfferId());
+
+                    array_push($jobOfferList, $jobOffer);
+                }
+                
+                $alert->setType("success");
+                $alert->setMessage("Postulacion eliminada con exito");
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                require_once(VIEWS_PATH."StudentApplicationView.php");
+            }
         }
 
         public function SelfModify($studentId, $careerId, $firstName, $lastName, $dni, $fileNumber, $gender, $email, $password, $birthDate, $phoneNumber, $active){

@@ -157,6 +157,34 @@
                 throw $ex;
             }
         }
+
+        public function getOnebyCompanyId($id){
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableName." WHERE companyId=:companyId;";
+    
+                $parameters['companyId'] = $id;
+    
+                $this->connection = Connection::GetInstance();
+    
+                $resultSet = $this->connection->Execute($query, $parameters);
+    
+                $companyUser = new CompanyUser();
+    
+                if($resultSet != null){
+                    $companyUser->setCompanyUserId($resultSet[0]["companyUserId"]);
+                    $companyUser->setCompanyId($resultSet[0]["companyId"]);
+                    $companyUser->setEmail($resultSet[0]["email"]);
+                    $companyUser->setPassword($resultSet[0]["password"]);
+                }
+    
+                return $companyUser;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
     }
 
 ?>

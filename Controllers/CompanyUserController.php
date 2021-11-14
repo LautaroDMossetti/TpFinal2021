@@ -5,10 +5,15 @@
     use Models\Company as Company;
     use Models\Alert as Alert;
     use Models\CompanyUser as CompanyUser;
+    use Models\Student as Student;
     use DAO\CompanyUserDAO as CompanyUserDAO;
+    use Controllers\JobOfferController as JobOfferController;
+    use Controllers\StudentController as StudentController;
     use Controllers\CompanyController as CompanyController;
+    use Controllers\StudentXJobOfferController as StudentXJobOfferController;
+use Models\JobOffer;
 
-    class CompanyUserController{
+class CompanyUserController{
         private $companyUserDAO;
 
         public function __construct()
@@ -32,6 +37,13 @@
             return $companyUser;
         }
 
+        public function GetOneByCompanyId($id){
+            $companyUser = new CompanyUser();
+            $companyUser = $this->companyUserDAO->getOnebyCompanyId($id);
+
+            return $companyUser;
+        }
+
         public function ShowListView($alert = ""){
             $companyUsersList = array();
             $companyUsersList = $this->companyUserDAO->getAll();
@@ -48,6 +60,66 @@
             $companiesList = $companyController->GetAll();
 
             require_once(VIEWS_PATH."CompanyUserAdd.php");
+        }
+
+        public function ShowPersonalJobOfferListView($id,$alert = ""){
+            $jobOfferList = array();
+
+            $jobOfferController = new JobOfferController();
+            $companyController = new CompanyController();
+
+            $jobOfferList = $jobOfferController->FilterByCompanyId($id);
+            $company = $companyController->GetOne($id);
+
+            require_once(VIEWS_PATH."CompanysJobOfferList.php");
+        }
+
+        public function ShowJobOfferApplications($jobOfferId, $alert = ""){
+            $studentXJobOfferController = new StudentXJobOfferController();
+            $studentController = new StudentController();
+            $jobOfferController = new JobOfferController();
+
+            $studentList = array();
+            
+            $jobOffer = $jobOfferController->GetOne($jobOfferId);
+            $applicationList = $studentXJobOfferController->filterByJobOfferId($jobOfferId);
+
+            foreach($applicationList as $row){
+                $student = $studentController->GetOne($row->getStudentId());
+
+                array_push($studentList, $student);
+            }
+
+            require_once(VIEWS_PATH."JobOfferApplicationsView.php");
+        }
+
+        public function FilterApplicationsListByLastName($lastName, $jobOfferId){
+            $alert = new Alert("", "");
+            
+            try{
+                $studentXJobOfferController = new StudentXJobOfferController();
+                $studentController = new StudentController();
+                $jobOfferController = new JobOfferController();
+
+                $studentList = array();
+                
+                $jobOffer = $jobOfferController->GetOne($jobOfferId);
+                $applicationList = $studentXJobOfferController->filterByJobOfferId($jobOfferId);
+
+                foreach($applicationList as $row){
+                    $student = $studentController->GetOne($row->getStudentId());
+
+                    array_push($studentList, $student);
+                }
+
+                $alert->setType("success");
+                $alert->setMessage("Resultados de Apellido ". $lastName);
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                require_once(VIEWS_PATH."JobOfferApplicationsView.php");
+            }
         }
 
         public function ShowCompanyUserProfileView($id){
@@ -89,6 +161,50 @@
                 $alert->setMessage($ex->getMessage());
             }finally{
                 $this->ShowModifyView($id, $alert);
+            }
+        }
+
+        public function FilterJobOfferListByCareer($careerDescription, $companyId){
+            $alert = new Alert("", "");
+
+            try{
+                $jobOfferList = array();
+            
+                $jobOfferController = new JobOfferController();
+                $companyController = new CompanyController();
+
+                $jobOfferList = $jobOfferController->FilterByCompanyId($companyId);
+                $company = $companyController->GetOne($companyId);
+                
+                $alert->setType("success");
+                $alert->setMessage("Resultado de Carreras de nombre ". $careerDescription);
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                require_once(VIEWS_PATH."CompanysJobOfferList.php");
+            }
+        }
+
+        public function FilterJobOfferListByJobPosition($jobPositionDescription, $companyId){
+            $alert = new Alert("", "");
+
+            try{
+                $jobOfferList = array();
+            
+                $jobOfferController = new JobOfferController();
+                $companyController = new CompanyController();
+
+                $jobOfferList = $jobOfferController->FilterByCompanyId($companyId);
+                $company = $companyController->GetOne($companyId);
+                
+                $alert->setType("success");
+                $alert->setMessage("Resultado de Puestos de nombre ". $jobPositionDescription);
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                require_once(VIEWS_PATH."CompanysJobOfferList.php");
             }
         }
 

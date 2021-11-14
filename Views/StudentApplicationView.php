@@ -8,6 +8,7 @@ use Models\JobOffer as JobOffer;
 use Models\Career as Career;
 use DAO\CompanyDAO;
 use DAO\JobPositionDao;
+use Models\Student as Student;
 use Models\Admin as Admin;
 use Models\Alert as Alert;
 use Models\CompanyUser as CompanyUser;
@@ -35,22 +36,16 @@ if(isset($_SESSION['loggedUser'])){
 
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Listado de Ofertas de Trabajo</h2>
+            <h2 class="mb-4">Listado de Postulaciones del Alumno: <?php echo $student->getFirstName()." ".$student->getLastName();?></h2>
 
-            <form action="<?php echo FRONT_ROOT ?>JobOffer/FilterByCareer" style="display: inline;">
+            <form action="<?php echo FRONT_ROOT ?>Student/FilterApplicationListByCareer" style="display: inline;">
                 <input type="text" name="careerDescription" placeholder="Buscar por Carrera">
+                <input type="hidden" name="id" value="<?php echo $student->getStudentId(); ?>" readonly>
             </form>
-            <form action="<?php echo FRONT_ROOT ?>JobOffer/FilterByJobPosition" style="display: inline;">
+            <form action="<?php echo FRONT_ROOT ?>Student/FilterApplicationListByJobPosition" style="display: inline;">
                 <input type="text" name="jobPositionDescription" placeholder="Buscar por Puesto">
+                <input type="hidden" name="id" value="<?php echo $student->getStudentId(); ?>" readonly>
             </form>
-            <?php if($loggedUser instanceof CompanyUser){
-                ?>
-                    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowAddView" style="display: inline;">
-                        <button type="submit">Crear Oferta de Trabajo</button>
-                    </form>
-                <?php
-                }
-            ?>
             <table class="table bg-light-alpha">
                 <thead>
                     <tr>
@@ -80,18 +75,15 @@ if(isset($_SESSION['loggedUser'])){
                                         <td><?php echo $row->getPublicationDate();?></td>
                                         <td><?php echo $row->getExpirationDate();?></td>
                                         <td>
-                                            <form action="<?php echo FRONT_ROOT ?>" method="POST" style="display: inline;">
-                                                <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Mas Info</button>
+                                            <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobOfferDetailsView" method="POST" style="display: inline;">
+                                                <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Mas Info</button>
                                             </form>
-
-                                            <?php if($loggedUser instanceof CompanyUser){
+                                            <?php
+                                            if($loggedUser instanceof Student || $loggedUser instanceof Admin){
                                                 ?>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
-                                                        <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>
-                                                    </form>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/RemoveFromPersonalList" method="POST" style="display: inline;">
-                                                        <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Eliminar</button>
-                                                        <input type="hidden" name="companyId" value="<?php echo $company->getCompanyId(); ?>" readonly>
+                                                    <form action="<?php echo FRONT_ROOT ?>Student/CancelApplication" method="POST" style="display: inline;">
+                                                        <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Cancelar Postulacion</button>
+                                                        <input type="hidden" name="studentId" value="<?php echo $student->getStudentId(); ?>" readonly>
                                                     </form>
                                                 <?php
                                             }
@@ -109,18 +101,16 @@ if(isset($_SESSION['loggedUser'])){
                                         <td><?php echo $row->getPublicationDate();?></td>
                                         <td><?php echo $row->getExpirationDate();?></td>
                                         <td>
-                                            <form action="<?php echo FRONT_ROOT ?>" method="POST" style="display: inline;">
-                                                <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Mas Info</button>
+                                            <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobOfferDetailsView" method="POST" style="display: inline;">
+                                                <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Mas Info</button>
                                             </form>
 
-                                            <?php if($loggedUser instanceof CompanyUser){
+                                            <?php
+                                            if($loggedUser instanceof Student || $loggedUser instanceof Admin){
                                                 ?>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
-                                                        <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>
-                                                    </form>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/RemoveFromPersonalList" method="POST" style="display: inline;">
-                                                        <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Eliminar</button>
-                                                        <input type="hidden" name="companyId" value="<?php echo $company->getCompanyId(); ?>" readonly>
+                                                    <form action="<?php echo FRONT_ROOT ?>Student/CancelApplication" method="POST" style="display: inline;">
+                                                        <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Cancelar Postulacion</button>
+                                                        <input type="hidden" name="studentId" value="<?php echo $student->getStudentId(); ?>" readonly>
                                                     </form>
                                                 <?php
                                             }
@@ -138,18 +128,16 @@ if(isset($_SESSION['loggedUser'])){
                                         <td><?php echo $row->getPublicationDate();?></td>
                                         <td><?php echo $row->getExpirationDate();?></td>
                                         <td>
-                                            <form action="<?php echo FRONT_ROOT ?>" method="POST" style="display: inline;">
-                                                <button type="submit" name="id" value="<?php echo $row->getCompanyId(); ?>">Mas Info</button>
+                                            <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobOfferDetailsView" method="POST" style="display: inline;">
+                                                <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Mas Info</button>
                                             </form>
 
-                                            <?php if($loggedUser instanceof CompanyUser){
+                                            <?php
+                                            if($loggedUser instanceof Student || $loggedUser instanceof Admin){
                                                 ?>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
-                                                        <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>
-                                                    </form>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/RemoveFromPersonalList" method="POST" style="display: inline;">
-                                                        <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Eliminar</button>
-                                                        <input type="hidden" name="companyId" value="<?php echo $company->getCompanyId(); ?>" readonly>
+                                                    <form action="<?php echo FRONT_ROOT ?>Student/CancelApplication" method="POST" style="display: inline;">
+                                                        <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Cancelar Postulacion</button>
+                                                        <input type="hidden" name="studentId" value="<?php echo $student->getStudentId(); ?>" readonly>
                                                     </form>
                                                 <?php
                                             }
