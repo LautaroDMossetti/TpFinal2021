@@ -64,7 +64,7 @@
                             ?>
                             </datalist>
                             <td><input type="text" size="50" name="description" value="<?php echo $jobOfferToModify->getDescription();?>"></td>
-                            <td><input type="date" name="publicationDate" value="<?php echo $jobOfferToModify->getPublicationDate();?>" readonly></td>
+                            <td><input type="date" name="publicationDate" value="<?php echo $jobOfferToModify->getPublicationDate();?>"></td>
                             <td><input type="date" name="expirationDate" value="<?php echo $jobOfferToModify->getExpirationDate();?>"></td>
                         </tr>
                 <?php

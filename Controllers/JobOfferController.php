@@ -111,7 +111,6 @@ class JobOfferController{
             $alert = new Alert("", "");
             
             try{
-
                 $jobOffer = new JobOffer();
 
                 $jobOffer->setJobPositionId($jobPositionId);
