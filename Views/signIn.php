@@ -4,6 +4,11 @@ use Models\Alert;
 
 require_once('header.php');
 ?>
+    <div style="text-align: left">
+        <form action="<?php echo FRONT_ROOT ?>Home/Index">
+            <button type="submit">Volver</button>
+        </form>
+    </div>
     <div style="text-align: center; padding-top: 100px">
         <h2>Registrar una cuenta</h2>
             <strong>Tipo de cuenta:</strong>

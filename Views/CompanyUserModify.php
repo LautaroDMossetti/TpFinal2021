@@ -14,7 +14,6 @@
 <table class="table bg-light-alpha">
     <thead>
         <tr>
-            <th>ID</th>
             <th>ID Empresa</th>
             <th>Email</th>
             <th>Contraseña</th>
@@ -35,7 +34,7 @@
                 
                 ?>
                         <tr>
-                            <td><input type="number" name="id" value="<?php echo $companyUserToModify->getCompanyUserId();?>" readonly></td>
+                            <input type="number" name="id" value="<?php echo $companyUserToModify->getCompanyUserId();?>" hidden readonly>
                             <td><input type="number" name="companyId" value="<?php echo $companyUserToModify->getCompanyId();?>" <?php if(! $loggedUser instanceof Admin){ ?> readonly <?php } ?>></td>
                             <td><input type="text" name="email" value="<?php echo $companyUserToModify->getEmail();?>"></td>
                             <td><input type="text" name="password" value="<?php echo $companyUserToModify->getPassword();?>"></td>

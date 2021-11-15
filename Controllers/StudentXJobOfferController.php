@@ -37,6 +37,13 @@
             $this->studentXJobOfferDAO->removeByBothIds($studentId, $jobOfferId);
         }
 
+        public function GetOneByBothIds($studentId, $jobOfferId){
+            $studentXJobOffer = new StudentXJobOffer();
+            $studentXJobOffer = $this->studentXJobOfferDAO->getOneByBothIds($studentId,$jobOfferId);
+
+            return $studentXJobOffer;
+        }
+
         public function Add($studentId, $jobOfferId){
             $alert = new Alert("", "");
 

@@ -21,7 +21,6 @@
 <table class="table bg-light-alpha">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Dni</th>
@@ -49,7 +48,7 @@
                 }
                 ?>
                         <tr>
-                            <td><input type="number" name="studentId" value="<?php echo $studentToModify->getStudentId();?>" readonly></td>
+                            <input type="number" name="studentId" value="<?php echo $studentToModify->getStudentId();?>" hidden readonly>
                             <td><input type="text" name="firstName" value="<?php echo $studentToModify->getFirstName();?>"></td>
                             <td><input type="text" name="lastName" value="<?php echo $studentToModify->getLastname();?>"></td>
                             <td><input type="text" name="dni" value="<?php echo $studentToModify->getDni();?>" <?php if(! $loggedUser instanceof Admin){ ?> readonly <?php } ?>></td>
@@ -60,7 +59,7 @@
                             <td><input type="text" name="password" value="<?php echo $studentToModify->getPassword();?>"></td>
                             <td><input type="text" name="birthDate" value="<?php echo $studentToModify->getBirthDate();?>"></td>
                             <td><input type="text" name="phoneNumber" value="<?php echo $studentToModify->getPhoneNumber();?>"></td>
-                            <td><input type="number" name="active" value="<?php echo $studentToModify->getActive();?>"></td>
+                            <td><input type="number" name="active" value="<?php echo $studentToModify->getActive();?>" <?php if(! $loggedUser instanceof Admin){ ?> readonly <?php } ?>></td>
                         </tr>
                 <?php
             }

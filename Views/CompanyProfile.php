@@ -3,6 +3,8 @@
     use Controllers\HomeController as HomeController;
     use Models\Alert as Alert;
     use Models\CompanyUser as CompanyUser;
+    use Models\Student as Student;
+    use Models\Admin as Admin;
 
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
@@ -52,6 +54,12 @@
             </form>
             <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowPersonalListView" method="POST" style="display: inline;">
                 <button type="submit" name="id" value="<?php echo $loggedUser->getCompanyId(); ?>">Ver Ofertas de Trabajo</button>
+            </form>
+        <?php
+    }elseif($loggedUser instanceof Admin || $loggedUser instanceof Student){
+        ?>
+            <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowPersonalListView" method="POST" style="display: inline;">
+                <button type="submit" name="id" value="<?php echo $company->getCompanyId(); ?>">Ver Ofertas de Trabajo</button>
             </form>
         <?php
     }

@@ -35,7 +35,7 @@ if(isset($_SESSION['loggedUser'])){
 
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Listado de Ofertas de Trabajo</h2>
+            <h2 class="mb-4">Listado de Todas Ofertas de Trabajo</h2>
 
             <form action="<?php echo FRONT_ROOT ?>JobOffer/FilterByCareer" style="display: inline;">
                 <input type="text" name="careerDescription" placeholder="Buscar por Carrera">
@@ -58,8 +58,6 @@ if(isset($_SESSION['loggedUser'])){
                         <th>Puesto</th>
                         <th>Compania</th>
                         <th>Descripcion</th>
-                        <th>Fecha de publicacion</th>
-                        <th>Fecha de caducacion</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,8 +75,6 @@ if(isset($_SESSION['loggedUser'])){
                                         <td><?php echo $jobPosition->getDescription();?></td>
                                         <td><?php echo $company->getNombre();?></td>
                                         <td><?php echo $row->getDescription();?></td>
-                                        <td><?php echo $row->getPublicationDate();?></td>
-                                        <td><?php echo $row->getExpirationDate();?></td>
                                         <td>
                                             <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobOfferDetailsView" method="POST" style="display: inline;">
                                                 <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Mas Info</button>
@@ -105,8 +101,6 @@ if(isset($_SESSION['loggedUser'])){
                                         <td><?php echo $jobPosition->getDescription();?></td>
                                         <td><?php echo $company->getNombre();?></td>
                                         <td><?php echo $row->getDescription();?></td>
-                                        <td><?php echo $row->getPublicationDate();?></td>
-                                        <td><?php echo $row->getExpirationDate();?></td>
                                         <td>
                                             <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobOfferDetailsView" method="POST" style="display: inline;">
                                                 <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Mas Info</button>
@@ -133,8 +127,6 @@ if(isset($_SESSION['loggedUser'])){
                                         <td><?php echo $jobPosition->getDescription();?></td>
                                         <td><?php echo $company->getNombre();?></td>
                                         <td><?php echo $row->getDescription();?></td>
-                                        <td><?php echo $row->getPublicationDate();?></td>
-                                        <td><?php echo $row->getExpirationDate();?></td>
                                         <td>
                                             <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobOfferDetailsView" method="POST" style="display: inline;">
                                                 <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Mas Info</button>

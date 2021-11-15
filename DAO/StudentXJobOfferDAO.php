@@ -38,6 +38,34 @@
             }
         }
 
+        public function getOneByBothIds($studentId, $jobOfferId){
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableName." WHERE studentId=:studentId AND jobOfferId=:jobOfferId;";
+
+                $parameters['studentId'] = $studentId;
+                $parameters['jobOfferId'] = $jobOfferId;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+
+                $studentXJobOffer = new studentXJobOffer();
+
+                if($resultSet != null){  
+                    $studentXJobOffer->setStudentXJobOfferId($resultSet[0]["studentXJobOfferId"]);
+                    $studentXJobOffer->setStudentId($resultSet[0]["studentId"]);
+                    $studentXJobOffer->setJobOfferId($resultSet[0]["jobOfferId"]);
+                }
+
+                return $studentXJobOffer;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function removeByBothIds($studentId,$jobOfferId){
             try
             {

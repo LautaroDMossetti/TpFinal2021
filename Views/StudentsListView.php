@@ -25,7 +25,7 @@
 
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Listado de Estudiantes</h2>
+            <h2 class="mb-4">Listado de Todos los Estudiantes</h2>
 
             <form action="<?php echo FRONT_ROOT ?>Student/FilterByLastName" style="display: inline;">
                 <input type="text" name="lastName" placeholder="Buscar por apellido">

@@ -25,7 +25,7 @@
 
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Listado de Usuarios Empresa</h2>
+            <h2 class="mb-4">Listado de Todos los Usuarios Empresa</h2>
 
             <form action="<?php echo FRONT_ROOT ?>CompanyUser/FilterByEmail" style="display: inline;">
                 <input type="text" name="email" placeholder="Buscar por email">

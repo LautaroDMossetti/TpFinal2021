@@ -22,7 +22,7 @@
 
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Listado de Empresas</h2>
+            <h2 class="mb-4">Listado de Todas Empresas</h2>
 
             <form action="<?php echo FRONT_ROOT ?>Company/FilterByName" style="display: inline;">
                 <input type="text" name="nombre" placeholder="Buscar por nombre">

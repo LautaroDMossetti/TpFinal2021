@@ -19,7 +19,6 @@
 <table class="table bg-light-alpha">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Puesto</th>
             <th>Empresa</th>
             <th>Descripcion</th>
@@ -43,7 +42,7 @@
                 
                 ?>
                         <tr>
-                            <td><input type="number" name="id" value="<?php echo $jobOfferToModify->getJobOfferId();?>" readonly></td>
+                            <input type="number" name="id" value="<?php echo $jobOfferToModify->getJobOfferId();?>" hidden readonly>
                             <td><input list="jobPositions" name="jobPositionId" value="<?php echo $jobOfferToModify->getJobPositionId();?>"></td>
                             <datalist id="jobPositions">
                                 <?php
@@ -65,7 +64,7 @@
                             ?>
                             </datalist>
                             <td><input type="text" size="50" name="description" value="<?php echo $jobOfferToModify->getDescription();?>"></td>
-                            <td><input type="text" name="publicationDate" value="<?php echo $jobOfferToModify->getPublicationDate();?>" readonly></td>
+                            <td><input type="date" name="publicationDate" value="<?php echo $jobOfferToModify->getPublicationDate();?>" readonly></td>
                             <td><input type="date" name="expirationDate" value="<?php echo $jobOfferToModify->getExpirationDate();?>"></td>
                         </tr>
                 <?php
