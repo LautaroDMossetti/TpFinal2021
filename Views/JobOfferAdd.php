@@ -50,10 +50,7 @@
             <label for="description">Descripcion</label>
             <input type="text" name="description" size="50">
         </div>
-        <div class="form-group">
-            <label for="publicationDate">Fecha de Publicacion</label>
-            <input type="date" name="publicationDate" value="<?php echo date("m/d/Y"); ?>" readonly>
-        </div>
+        <input type="text" name="publicationDate" value="<?php echo date("m/d/Y"); ?>" hidden readonly>
         <div class="form-group">
             <label for="expirationDate">Fecha de Expiracion</label>
             <input type="date" name="expirationDate">
