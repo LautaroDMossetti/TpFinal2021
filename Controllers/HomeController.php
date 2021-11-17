@@ -1,8 +1,6 @@
 <?php
     namespace Controllers;
 
-    use Controllers\APIController as APIController;
-
     class HomeController
     {
         public function Index($alert = "")

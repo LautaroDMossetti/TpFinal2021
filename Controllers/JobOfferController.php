@@ -202,7 +202,6 @@ class JobOfferController{
 
         public function RemoveFromPersonalList($id, $companyId){
             $alert = new Alert("", "");
-            $companyUserController = new CompanyUserController();
             
             try{
                 $this->jobOfferDao->remove($id);

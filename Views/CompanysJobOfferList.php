@@ -91,8 +91,9 @@ if(isset($_SESSION['loggedUser'])){
                                                     <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>
                                                     </form>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/Remove" method="POST" style="display: inline;">
+                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/RemoveFromPersonalList" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Eliminar</button>
+                                                        <input type="number" name="companyId" value="<?php echo $company->getCompanyId(); ?>" hidden readonly>
                                                     </form>
                                                 <?php
                                             }
@@ -119,8 +120,9 @@ if(isset($_SESSION['loggedUser'])){
                                                     <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>
                                                     </form>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/Remove" method="POST" style="display: inline;">
+                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/RemoveFromPersonalList" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Eliminar</button>
+                                                        <input type="number" name="companyId" value="<?php echo $company->getCompanyId(); ?>" hidden readonly>
                                                     </form>
                                                 <?php
                                             }
@@ -147,8 +149,9 @@ if(isset($_SESSION['loggedUser'])){
                                                     <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowModifyView" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Modificar</button>
                                                     </form>
-                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/Remove" method="POST" style="display: inline;">
+                                                    <form action="<?php echo FRONT_ROOT ?>JobOffer/RemoveFromPersonalList" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Eliminar</button>
+                                                        <input type="number" name="companyId" value="<?php echo $company->getCompanyId(); ?>" hidden readonly>
                                                     </form>
                                                 <?php
                                             }

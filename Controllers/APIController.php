@@ -2,9 +2,6 @@
     namespace Controllers;
 
     use DAO\API as API;
-    use Controllers\StudentController as StudentController;
-    use Controllers\CareersController as CareersController;
-    use Controllers\JobPositionController as JobPositionController;
     use \Exception as Exception;
 
     class APIController{

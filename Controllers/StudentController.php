@@ -9,7 +9,7 @@
     use Controllers\StudentXJobOfferController as StudentXJobOfferController;
     use Controllers\JobOfferController as JobOfferController;
     use Models\Career;
-use Models\JobOffer;
+    use Models\JobOffer;
 
 class StudentController{
         private $studentDao;

@@ -11,7 +11,7 @@
     use Controllers\StudentController as StudentController;
     use Controllers\CompanyController as CompanyController;
     use Controllers\StudentXJobOfferController as StudentXJobOfferController;
-use Models\JobOffer;
+    use Models\JobOffer;
 
 class CompanyUserController{
         private $companyUserDAO;
