@@ -69,11 +69,11 @@
                                                     <button type="submit" name="id" value="<?php echo $row->getStudentId(); ?>">Ver Perfil</button>
                                                 </form>
 
-                                                <?php if($loggedUser instanceof Admin || ($loggedUser instanceof CompanyUser && $loggedUser->getCompanyId() == $jobOffer->getCompanyId())){
+                                                <?php if($loggedUser instanceof Admin){
                                                     ?>
-                                                        <form action="<?php echo FRONT_ROOT ?>CompanyUser/DeclineApplication" method="POST" style="display: inline;">
-                                                            <button type="submit" name="studentId" value="<?php echo $row->getStudentId(); ?>">Declinar Postulacion</button>
-                                                            <input type="hidden" name="jobOfferId" value="<?php echo $jobOffer->getJobOfferId(); ?>" readonly>
+                                                        <form action="<?php echo FRONT_ROOT ?>Admin/ShowDeclineApplicationView" method="POST" style="display: inline;">
+                                                            <button type="submit" id="studentId" name="studentId" value="<?php echo $row->getStudentId(); ?>">Declinar Postulacion</button>
+                                                            <input type="hidden" id="jobOfferId" name="jobOfferId" value="<?php echo $jobOffer->getJobOfferId(); ?>" readonly>
                                                         </form>
                                                     <?php
                                                 }
@@ -98,11 +98,11 @@
                                                     <button type="submit" name="id" value="<?php echo $row->getStudentId(); ?>">Ver Perfil</button>
                                                 </form>
 
-                                                <?php if($loggedUser instanceof Admin || ($loggedUser instanceof CompanyUser && $loggedUser->getCompanyId() == $jobOffer->getCompanyId())){
+                                                <?php if($loggedUser instanceof Admin){
                                                     ?>
-                                                        <form action="<?php echo FRONT_ROOT ?>CompanyUser/DeclineApplication" method="POST" style="display: inline;">
-                                                            <button type="submit" name="studentId" value="<?php echo $row->getStudentId(); ?>">Declinar Postulacion</button>
-                                                            <input type="hidden" name="jobOfferId" value="<?php echo $jobOffer->getJobOfferId(); ?>" readonly>
+                                                        <form action="<?php echo FRONT_ROOT ?>Admin/ShowDeclineApplicationView" method="POST" style="display: inline;">
+                                                            <button type="submit" id="studentId" name="studentId" value="<?php echo $row->getStudentId(); ?>">Declinar Postulacion</button>
+                                                            <input type="hidden" id="jobOfferId" name="jobOfferId" value="<?php echo $jobOffer->getJobOfferId(); ?>" readonly>
                                                         </form>
                                                     <?php
                                                 }

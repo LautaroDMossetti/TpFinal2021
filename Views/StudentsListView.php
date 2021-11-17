@@ -68,7 +68,7 @@
                                                 <button type="submit" name="id" value="<?php echo $row->getStudentId(); ?>">Ver Perfil</button>
                                             </form>
 
-                                            <?php if($loggedUser instanceof Admin){
+                                            <?php /* if($loggedUser instanceof Admin){
                                                 ?>
                                                     <form action="<?php echo FRONT_ROOT ?>Student/ShowModifyView" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getStudentId(); ?>">Modificar</button>
@@ -78,7 +78,7 @@
                                                     </form>
                                                 <?php
                                             }
-                                            ?>
+                                            */ ?>
                                         </td>
                                     </tr>
                                 <?php

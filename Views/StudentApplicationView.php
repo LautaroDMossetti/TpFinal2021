@@ -79,11 +79,18 @@ if(isset($_SESSION['loggedUser'])){
                                                 <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Mas Info</button>
                                             </form>
                                             <?php
-                                            if($loggedUser instanceof Student || $loggedUser instanceof Admin){
+                                            if($loggedUser instanceof Student){
                                                 ?>
                                                     <form action="<?php echo FRONT_ROOT ?>Student/CancelApplication" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Cancelar Postulacion</button>
                                                         <input type="hidden" name="studentId" value="<?php echo $student->getStudentId(); ?>" readonly>
+                                                    </form>
+                                                <?php
+                                            }elseif($loggedUser instanceof Admin){
+                                                ?>
+                                                    <form action="<?php echo FRONT_ROOT ?>Admin/ShowDeclineApplicationView" method="POST" style="display: inline;">
+                                                        <button type="submit" id="studentId" name="studentId" value="<?php echo $student->getStudentId(); ?>">Declinar Postulacion</button>
+                                                        <input type="hidden" id="jobOfferId" name="jobOfferId" value="<?php echo $row->getJobOfferId(); ?>" readonly>
                                                     </form>
                                                 <?php
                                             }
@@ -106,11 +113,18 @@ if(isset($_SESSION['loggedUser'])){
                                             </form>
 
                                             <?php
-                                            if($loggedUser instanceof Student || $loggedUser instanceof Admin){
+                                            if($loggedUser instanceof Student){
                                                 ?>
                                                     <form action="<?php echo FRONT_ROOT ?>Student/CancelApplication" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Cancelar Postulacion</button>
                                                         <input type="hidden" name="studentId" value="<?php echo $student->getStudentId(); ?>" readonly>
+                                                    </form>
+                                                <?php
+                                            }elseif($loggedUser instanceof Admin){
+                                                ?>
+                                                    <form action="<?php echo FRONT_ROOT ?>Admin/ShowDeclineApplicationView" method="POST" style="display: inline;">
+                                                        <button type="submit" id="studentId" name="studentId" value="<?php echo $student->getStudentId(); ?>">Declinar Postulacion</button>
+                                                        <input type="hidden" id="jobOfferId" name="jobOfferId" value="<?php echo $row->getJobOfferId(); ?>" readonly>
                                                     </form>
                                                 <?php
                                             }
@@ -133,11 +147,18 @@ if(isset($_SESSION['loggedUser'])){
                                             </form>
 
                                             <?php
-                                            if($loggedUser instanceof Student || $loggedUser instanceof Admin){
+                                            if($loggedUser instanceof Student){
                                                 ?>
                                                     <form action="<?php echo FRONT_ROOT ?>Student/CancelApplication" method="POST" style="display: inline;">
                                                         <button type="submit" name="id" value="<?php echo $row->getJobOfferId(); ?>">Cancelar Postulacion</button>
                                                         <input type="hidden" name="studentId" value="<?php echo $student->getStudentId(); ?>" readonly>
+                                                    </form>
+                                                <?php
+                                            }elseif($loggedUser instanceof Admin){
+                                                ?>
+                                                    <form action="<?php echo FRONT_ROOT ?>Admin/ShowDeclineApplicationView" method="POST" style="display: inline;">
+                                                        <button type="submit" id="studentId" name="studentId" value="<?php echo $student->getStudentId(); ?>">Declinar Postulacion</button>
+                                                        <input type="hidden" id="jobOfferId" name="jobOfferId" value="<?php echo $row->getJobOfferId(); ?>" readonly>
                                                     </form>
                                                 <?php
                                             }

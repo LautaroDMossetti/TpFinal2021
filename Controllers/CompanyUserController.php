@@ -122,37 +122,6 @@ class CompanyUserController{
             }
         }
 
-        public function DeclineApplication($studentId, $jobOfferId){
-            $alert = new Alert("", "");
-
-            try{
-                $studentXJobOfferController = new StudentXJobOfferController();
-                $studentController = new StudentController();
-                $jobOfferController = new JobOfferController();
-
-                $studentList = array();
-                
-                $studentXJobOfferController->RemoveByBothIds($studentId, $jobOfferId);
-                
-                $jobOffer = $jobOfferController->GetOne($jobOfferId);
-                $applicationList = $studentXJobOfferController->filterByJobOfferId($jobOfferId);
-
-                foreach($applicationList as $row){
-                    $student = $studentController->GetOne($row->getStudentId());
-
-                    array_push($studentList, $student);
-                }
-                
-                $alert->setType("success");
-                $alert->setMessage("Postulacion declinada con exito");
-            }catch(Exception $ex){
-                $alert->setType("danger");
-                $alert->setMessage($ex->getMessage());
-            }finally{
-                require_once(VIEWS_PATH."JobOfferApplicationsView.php");
-            }
-        }
-
         public function ShowCompanyUserProfileView($id){
             $alert = new Alert("", "");
 

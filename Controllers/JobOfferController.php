@@ -5,6 +5,8 @@
     use Controllers\CareerController as CareerController;
     use Controllers\CompanyController as CompanyController;
     use Controllers\CompanyUserController as CompanyUserController;
+    use Controllers\StudentController as StudentController;
+    use Controllers\StudentXJobOfferController as StudentXJobOfferController;
     use DAO\JobOfferDao as JobOfferDao;
     use Models\JobPosition as JobPosition;
     use Models\Alert as Alert;
@@ -200,10 +202,61 @@ class JobOfferController{
             }
         }
 
+        public function SendApplicationDeclinationMail($jobOffer, $student, $reason = "Decision del Personal Academico"){
+
+            $companyController = new CompanyController();
+
+            $company = $companyController->GetOne($jobOffer->getCompanyId());
+
+            //$to = $student->getEmail();
+            $to = "noreplytpfinal2021@gmail.com";
+            $subject = "Notificacion de Decline de Postulacion";
+            $message = "Estimado/a " . $student->getFirstName() . " " . $student->getLastName() . ",\n\nSu postulacion a la oferta laboral, de descripcion [" . $jobOffer->getDescription() . "] perteneciente a la empresa " . $company->getNombre() . ", ha sido denegada debido a la siguiente razon:\n" . $reason;
+            $headers = "From:noreplytpFinal2021@gmail.com";
+
+            mail($to,$subject,$message,$headers);
+        }
+
+        public function SendJobOfferClosingMail($jobOffer,$studentList){
+
+            $companyController = new CompanyController();
+
+            $company = $companyController->GetOne($jobOffer->getCompanyId());
+
+            foreach($studentList as $student){
+                //$to = $student->getEmail();
+                $to = "noreplytpfinal2021@gmail.com";
+                $subject = "Notificacion de Culminacion de Oferta Laboral";
+                $message = "Estimado/a " . $student->getFirstName() . " " . $student->getLastName() . ",\n\nLa oferta laboral, de descripcion [" . $jobOffer->getDescription() . "] perteneciente a la empresa " . $company->getNombre() . ", a la que usted se encontraba postulado ha culminado, le agradecemos su participacion.";
+                $headers = "From:noreplytpFinal2021@gmail.com";
+
+                mail($to,$subject,$message,$headers);
+            }
+        }
+
         public function RemoveFromPersonalList($id, $companyId){
             $alert = new Alert("", "");
             
             try{
+
+                $studentList = array();
+                $jobOfferToRemove = $this->GetOne($id);
+
+                //Email the students
+                $studentController = new StudentController();
+                $studentXJobOfferController = new StudentXJobOfferController();
+
+                $regList = $studentXJobOfferController->filterByJobOfferId($id);
+
+                foreach($regList as $reg){
+                    $student = $studentController->GetOne($reg->getStudentId());
+
+                    array_push($studentList, $student);
+                }
+
+                $this->SendJobOfferClosingMail($jobOfferToRemove, $studentList);
+                
+                //Remove the JobOffer
                 $this->jobOfferDao->remove($id);
 
                 $alert->setType("success");
@@ -220,6 +273,24 @@ class JobOfferController{
             $alert = new Alert("", "");
             
             try{
+                $studentList = array();
+                $jobOfferToRemove = $this->GetOne($id);
+
+                //Email the students
+                $studentController = new StudentController();
+                $studentXJobOfferController = new StudentXJobOfferController();
+
+                $regList = $studentXJobOfferController->filterByJobOfferId($id);
+
+                foreach($regList as $reg){
+                    $student = $studentController->GetOne($reg->getStudentId());
+
+                    array_push($studentList, $student);
+                }
+
+                $this->SendJobOfferClosingMail($jobOfferToRemove, $studentList);
+                
+                //Remove the JobOffer
                 $this->jobOfferDao->remove($id);
 
                 $alert->setType("success");
