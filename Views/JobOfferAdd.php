@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
             <label for="companyId">ID Empresa</label>
-            <input list="companies" name="companyId" <?php if($loggedUser instanceof CompanyUser){ ?> value="<?php echo $loggedUser->getCompanyId(); ?>" readonly <?php } ?> required>
+            <input list="companies" name="companyId" <?php if($loggedUser instanceof CompanyUser){ ?> value="<?php echo $loggedUser->getCompanyId(); ?>" hidden readonly <?php } ?> required>
             <datalist id="companies">
                 <?php
                     if(isset($companyList)){

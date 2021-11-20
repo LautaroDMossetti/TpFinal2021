@@ -251,7 +251,9 @@ class JobOfferController{
                 foreach($regList as $reg){
                     $student = $studentController->GetOne($reg->getStudentId());
 
-                    array_push($studentList, $student);
+                    if($student){
+                        array_push($studentList, $student);
+                    }
                 }
 
                 $this->SendJobOfferClosingMail($jobOfferToRemove, $studentList);
@@ -285,7 +287,9 @@ class JobOfferController{
                 foreach($regList as $reg){
                     $student = $studentController->GetOne($reg->getStudentId());
 
-                    array_push($studentList, $student);
+                    if($student){
+                        array_push($studentList, $student);
+                    }
                 }
 
                 $this->SendJobOfferClosingMail($jobOfferToRemove, $studentList);

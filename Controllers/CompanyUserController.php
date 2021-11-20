@@ -87,7 +87,9 @@ class CompanyUserController{
             foreach($applicationList as $row){
                 $student = $studentController->GetOne($row->getStudentId());
 
-                array_push($studentList, $student);
+                if($student){
+                    array_push($studentList, $student);
+                }
             }
 
             require_once(VIEWS_PATH."JobOfferApplicationsView.php");
@@ -109,7 +111,9 @@ class CompanyUserController{
                 foreach($applicationList as $row){
                     $student = $studentController->GetOne($row->getStudentId());
 
-                    array_push($studentList, $student);
+                    if($student){
+                        array_push($studentList, $student);
+                    }
                 }
 
                 $alert->setType("success");

@@ -29,8 +29,8 @@
     <?php
     if($loggedUser instanceof Student && $loggedUser->getStudentId() == $student->getStudentId()){
         ?>
-            <form action="<?php echo FRONT_ROOT ?>Student/ShowModifyView" method="POST" style="display: inline;">
-                <button type="submit" name="id" value="<?php echo $loggedUser->getStudentId(); ?>">Modificar</button>
+            <form action="<?php echo FRONT_ROOT ?>Student/ShowModifyPasswordView" method="POST" style="display: inline;">
+                <button type="submit" name="id" value="<?php echo $loggedUser->getStudentId(); ?>">Cambiar Contraseña</button>
             </form>
         <?php
     }

@@ -30,9 +30,11 @@
             <form action="<?php echo FRONT_ROOT ?>Student/FilterByLastName" style="display: inline;">
                 <input type="text" name="lastName" placeholder="Buscar por apellido">
             </form>
+            <?php /*
             <form action="<?php echo FRONT_ROOT ?>Student/ShowAddView" style="display: inline;">
                 <button type="submit">Crear un Estudiante</button>
             </form>
+            */ ?>
             <table class="table bg-light-alpha">
                 <thead>
                     <tr>
@@ -44,7 +46,6 @@
                         <th>Genero</th>
                         <th>Fecha de nacimiento</th>
                         <th>Numero de telefono</th>
-                        <th>Activo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +63,6 @@
                                         <td><?php echo $row->getGender();?></td>
                                         <td><?php echo $row->getBirthDate();?></td>
                                         <td><?php echo $row->getPhoneNumber();?></td>
-                                        <td><?php echo $row->getActive();?></td>
                                         <td>
                                             <form action="<?php echo FRONT_ROOT ?>Student/ShowStudentProfileView" method="POST" style="display: inline;">
                                                 <button type="submit" name="id" value="<?php echo $row->getStudentId(); ?>">Ver Perfil</button>

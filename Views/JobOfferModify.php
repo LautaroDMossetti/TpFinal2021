@@ -95,6 +95,15 @@
                     }
                     ?>
 
+                    <?php /*
+                    <br><br><br>
+    <h3>Cambiar Imagen</h3>
+    <form method="POST" action="<?php echo FRONT_ROOT ?>JobOfferImage/UploadImage" enctype="multipart/form-data" style="margin-top: 50px;">
+        <input type="number" id="jobOfferId" name="jobOfferId" value="<?php echo $jobOfferToModify->getJobOfferId(); ?>" hidden readonly>
+        <input type="file" name="image" id="image">
+        <button type="submit">Subir Imagen</button>
+    </form>
+    */ ?>
 <?php
     require_once('footer.php');
     }else{

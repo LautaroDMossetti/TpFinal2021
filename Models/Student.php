@@ -134,5 +134,9 @@
 
                 return $this;
         }
+
+        public function toStringNoPassword(){
+                return "careerId: ". $this->getCareerId() .", firstName: ". $this->getFirstName() .", lastName: ". $this->getLastName() .", dni: ". $this->getDni() .", fileNumber: ". $this->getFileNumber() .", gender: ". $this->getGender() .", email: ". $this->getEmail() .", birthdate: ". $this->getBirthDate() .", phoneNumber: ". $this->getPhoneNumber() .", active: ". $this->getActive() .".";
+        }
     }
 ?>

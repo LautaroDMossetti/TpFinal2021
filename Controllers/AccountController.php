@@ -126,32 +126,39 @@
 
                 if($i != count($studentsList) && $studentsList[$i]['email'] == $email){
                     if($studentsList[$i]['dni'] == $dni){
+                            
+                        if($studentsList[$i]['active'] == true){
 
-                        $newStudent = new Student();
-                        $newStudent->setStudentId($studentsList[$i]['studentId']);
-                        $newStudent->setCareerId($studentsList[$i]['careerId']);
-                        $newStudent->setFirstName($studentsList[$i]['firstName']);
-                        $newStudent->setLastName($studentsList[$i]['lastName']);
-                        $newStudent->setDni($studentsList[$i]['dni']);
-                        $newStudent->setFileNumber($studentsList[$i]['fileNumber']);
-                        $newStudent->setGender($studentsList[$i]['gender']);
-                        $newStudent->setBirthDate($studentsList[$i]['birthDate']);
-                        $newStudent->setEmail($studentsList[$i]['email']);
-                        $newStudent->setPassword($studentsList[$i]['dni'] . "00");
-                        $newStudent->setPhoneNumber($studentsList[$i]['phoneNumber']);
-                        $newStudent->setActive($studentsList[$i]['active']);
-
-                        try{
-                            $studentController->AddFromController($newStudent);
-
-                            $alert->setType("success");
-                            $alert->setMessage('Cuenta creada con exito, ahora puede logearse con su nueva cuenta, recuerde que su contraseña es su dni con dos ceros agregados al final');
-                            $homeController->Index($alert);
-                        }catch(Exception $ex){
+                            try{
+                                $newStudent = new Student();
+                                $newStudent->setStudentId($studentsList[$i]['studentId']);
+                                $newStudent->setCareerId($studentsList[$i]['careerId']);
+                                $newStudent->setFirstName($studentsList[$i]['firstName']);
+                                $newStudent->setLastName($studentsList[$i]['lastName']);
+                                $newStudent->setDni($studentsList[$i]['dni']);
+                                $newStudent->setFileNumber($studentsList[$i]['fileNumber']);
+                                $newStudent->setGender($studentsList[$i]['gender']);
+                                $newStudent->setBirthDate($studentsList[$i]['birthDate']);
+                                $newStudent->setEmail($studentsList[$i]['email']);
+                                $newStudent->setPassword($studentsList[$i]['dni'] . "00");
+                                $newStudent->setPhoneNumber($studentsList[$i]['phoneNumber']);
+                                $newStudent->setActive($studentsList[$i]['active']);
+                                
+                                $studentController->AddFromController($newStudent);
+                                
+                                $alert->setType("success");
+                                $alert->setMessage('Cuenta creada con exito, ahora puede logearse con su nueva cuenta, recuerde que su contraseña es su dni con dos ceros agregados al final');
+                                $homeController->Index($alert);
+                            }catch(Exception $ex){
+                                $alert->setType("danger");
+                                $alert->setMessage($ex->getMessage());
+                                
+                                $this->ShowSignInView($alert);
+                            }
+                        }else{
                             $alert->setType("danger");
-                            $alert->setMessage($ex->getMessage());
-
-                            $this->ShowSignInView($alert);
+                            $alert->setMessage('Este estudiante ya no pertenece dentro del sistema');
+                            $homeController->Index($alert);
                         }
                     }else{
                         $alert->setType("danger");
@@ -185,18 +192,21 @@
 
             $careersList = $apiController->GetAllCareers();
             $jobPositionsList = $apiController->GetAllJobPositions();
+            $studentsList = $apiController->GetAllStudents();
 
             try{
                 
                 if($careersList != false && $jobPositionsList != false){
                     $careerController->UpdateDatabase($careersList);
                     $jobPositionController->UpdateDatabase($jobPositionsList);
+                    $studentController->UpdateDatabaseNoAdd($studentsList);
                 }else{
                     $alert2->setType("warning");
                     $alert2->setMessage("Error al validar Carreras y Puestos de Trabajo con la API, el sistema utilizara los ultimos registros de la base de datos");
                 }
 
-                $studentsList = $studentController->GetAll();
+                $studentsList = array();
+                $studentsList = $studentController->GetAllIgnoreActive();
                 $companyUsersList = $companyUserController->GetAll();
 
                 //Login as admin
@@ -245,24 +255,30 @@
 
                         if($i != count($studentsList) && $studentsList[$i]->getEmail() == $email){
                             if($studentsList[$i]->getPassword() == $password){
+                                if($studentsList[$i]->getActive() == true){
+                                    $loggedUser = new Student();
 
-                                $loggedUser = new Student();
-                                $loggedUser->setStudentId($studentsList[$i]->getStudentId());
-                                $loggedUser->setCareerId($studentsList[$i]->getCareerId());
-                                $loggedUser->setFirstName($studentsList[$i]->getFirstName());
-                                $loggedUser->setLastName($studentsList[$i]->getLastName());
-                                $loggedUser->setDni($studentsList[$i]->getDni());
-                                $loggedUser->setFileNumber($studentsList[$i]->getFileNumber());
-                                $loggedUser->setGender($studentsList[$i]->getGender());
-                                $loggedUser->setBirthDate($studentsList[$i]->getBirthDate());
-                                $loggedUser->setEmail($studentsList[$i]->getEmail());
-                                $loggedUser->setPassword($studentsList[$i]->getPassword());
-                                $loggedUser->setPhoneNumber($studentsList[$i]->getPhoneNumber());
-                                $loggedUser->setActive($studentsList[$i]->getActive());
-
-                                $_SESSION['loggedUser'] = $loggedUser;
-
-                                $this->ShowMainView($alert, $alert2);
+                                    $loggedUser->setStudentId($studentsList[$i]->getStudentId());
+                                    $loggedUser->setCareerId($studentsList[$i]->getCareerId());
+                                    $loggedUser->setFirstName($studentsList[$i]->getFirstName());
+                                    $loggedUser->setLastName($studentsList[$i]->getLastName());
+                                    $loggedUser->setDni($studentsList[$i]->getDni());
+                                    $loggedUser->setFileNumber($studentsList[$i]->getFileNumber());
+                                    $loggedUser->setGender($studentsList[$i]->getGender());
+                                    $loggedUser->setBirthDate($studentsList[$i]->getBirthDate());
+                                    $loggedUser->setEmail($studentsList[$i]->getEmail());
+                                    $loggedUser->setPassword($studentsList[$i]->getPassword());
+                                    $loggedUser->setPhoneNumber($studentsList[$i]->getPhoneNumber());
+                                    $loggedUser->setActive($studentsList[$i]->getActive());
+                                    
+                                    $_SESSION['loggedUser'] = $loggedUser;
+                                    
+                                    $this->ShowMainView($alert, $alert2);
+                                }else{
+                                    $alert->setType("danger");
+                                    $alert->setMessage('Este estudiante ya no pertenece dentro del sistema');
+                                    $homeController->Index($alert);
+                                }
                             }else{
                                 $alert->setType("danger");
                                 $alert->setMessage('Datos incorrectos');

@@ -152,13 +152,14 @@
             try{
                 foreach($APIData as $row){
                     $APIJobPosition = new JobPosition();
-                    $APIJobPosition->setJobPositionId($row['jobPositionId']);
+
                     $APIJobPosition->setCareerId($row['careerId']);
                     $APIJobPosition->setDescription($row['description']);
 
                     $DBJobPosition = $this->getOneByDescription($APIJobPosition->getDescription());
 
                     if($DBJobPosition->getDescription() != null && strcmp($DBJobPosition->toString(),$APIJobPosition->toString()) != 0){
+                        $APIJobPosition->setJobPositionId($DBJobPosition->getJobPositionId());
                         $this->modifyByDescription($APIJobPosition);
                     }elseif($DBJobPosition->getDescription() == null){
                         $this->add($APIJobPosition);

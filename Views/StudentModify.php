@@ -12,11 +12,6 @@
     require_once('header.php');
     require_once('nav.php');
 
-    $studentController = new StudentController();
-    $studentToModify = new Student();
-
-    $studentToModify = $studentController->GetOne($id);
-
 ?>
 <table class="table bg-light-alpha">
     <thead>

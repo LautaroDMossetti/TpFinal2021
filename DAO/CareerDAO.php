@@ -52,7 +52,6 @@
             try{
                 foreach($APIData as $row){
                     $APICareer = new Career();
-                    $APICareer->setCareerId($row['careerId']);
                     $APICareer->setDescription($row['description']);
 
                     if($row["active"]){
@@ -64,6 +63,7 @@
                     $DBCareer = $this->getOneByDescription($APICareer->getDescription());
 
                     if($DBCareer->getDescription() != null && strcmp($DBCareer->toString(),$APICareer->toString()) != 0){
+                        $APICareer->setCareerId($DBCareer->getCareerId());
                         $this->modifyByDescription($APICareer);
                     }elseif($DBCareer->getDescription() == null){
                         $this->add($APICareer);

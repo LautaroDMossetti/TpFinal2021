@@ -23,11 +23,20 @@ class StudentController{
             $this->studentDao->add($newStudent);
         }
 
+        public function UpdateDatabaseNoAdd($APIData){
+            $this->studentDao->updateDatabaseNoAdd($APIData);
+        }
+
         public function GetOne($id){
-            $student = new Student();
             $student = $this->studentDao->getOne($id);
 
             return $student;
+        }
+
+        public function GetAllIgnoreActive(){
+            $studentList = $this->studentDao->getAllIgnoreActive();
+            return $studentList;
+
         }
 
         public function GetAll(){
@@ -63,6 +72,27 @@ class StudentController{
             $studentCareer = $careerController->GetOne($student->getCareerId());
             
             require_once(VIEWS_PATH."StudentProfile.php");
+        }
+
+        public function ShowModifyPasswordView($id, $alert = ""){
+            $studentToModify = $this->studentDao->getOne($id);
+            require_once(VIEWS_PATH."StudentChangePassword.php");
+        }
+
+        public function ModifyPassword($studentId, $newPassword){
+            $alert = new Alert("", "");
+            
+            try{
+                $this->studentDao->modifyPassword($studentId, $newPassword);
+
+                $alert->setType("success");
+                $alert->setMessage("Contraseña modificada con exito");
+            }catch(Exception $ex){
+                $alert->setType("danger");
+                $alert->setMessage($ex->getMessage());
+            }finally{
+                $this->ShowModifyPasswordView($studentId, $alert);
+            }
         }
 
         public function ShowStudentApplications($id, $alert = ""){
