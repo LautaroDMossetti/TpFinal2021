@@ -31,6 +31,12 @@
 
 <h2>Oferta de Trabajo</h2>
 
+<?php if(isset($jobOfferImage)){
+        ?>
+            <img src="../Uploads/Images/<?php echo $jobOfferImage->getImage(); ?>" width="500" height="500" alt="jobOfferImage">
+        <?php
+    } ?>
+
 <ul style="list-style-type: none; background: gray; width: 66%; margin: 2px">
     <li style="margin: 2px; background: white;">Empresa: <?php echo $company->getNombre(); ?></li>
     <li style="margin: 2px; background: white;">Carrera: <?php echo $career->getDescription(); ?></li>

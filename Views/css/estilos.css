@@ -20,6 +20,22 @@ button {
      border-radius: 5px;
 }
 
+a {
+     border-style: solid;
+     color: black;
+     border-radius: 5px;
+     background-color: white;
+     border-width: 2px;
+     padding-top: 3.5px;
+     padding-bottom: 3.5px;
+     padding-left: 9px;
+     padding-right: 9px;
+}
+
+a:hover{
+     color: black;
+}
+
 .bg-dark-alpha {
      background-color: rgba(0,0,0,0.2);
 }

@@ -202,7 +202,7 @@
                     $studentController->UpdateDatabaseNoAdd($studentsList);
                 }else{
                     $alert2->setType("warning");
-                    $alert2->setMessage("Error al validar Carreras y Puestos de Trabajo con la API, el sistema utilizara los ultimos registros de la base de datos");
+                    $alert2->setMessage("Error al validar la base de datos con la API, el sistema utilizara los ultimos registros de la base de datos");
                 }
 
                 $studentsList = array();

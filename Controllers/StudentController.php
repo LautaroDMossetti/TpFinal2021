@@ -8,6 +8,7 @@
     use Controllers\CareerController as CareerController;
     use Controllers\StudentXJobOfferController as StudentXJobOfferController;
     use Controllers\JobOfferController as JobOfferController;
+    use Controllers\StudentCvController as StudentCvController;
     use Models\Career;
     use Models\JobOffer;
 
@@ -65,11 +66,13 @@ class StudentController{
             require_once(VIEWS_PATH."StudentModify.php");
         }
 
-        public function ShowStudentProfileView($id){
+        public function ShowStudentProfileView($id, $alert = ""){
             $careerController = new CareerController();
+            $studentCvController = new StudentCvController();
 
             $student = $this->studentDao->getOne($id);
             $studentCareer = $careerController->GetOne($student->getCareerId());
+            $studentCv = $studentCvController->GetOneByStudentId($id);
             
             require_once(VIEWS_PATH."StudentProfile.php");
         }

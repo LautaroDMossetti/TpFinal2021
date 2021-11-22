@@ -7,6 +7,7 @@
     use Controllers\CompanyUserController as CompanyUserController;
     use Controllers\StudentController as StudentController;
     use Controllers\StudentXJobOfferController as StudentXJobOfferController;
+    use Controllers\JobOfferImageController as JobOfferImageController;
     use DAO\JobOfferDao as JobOfferDao;
     use Models\JobPosition as JobPosition;
     use Models\Alert as Alert;
@@ -43,12 +44,18 @@ class JobOfferController{
             $jobPositionController = new JobPositionController();
             $careerController = new CareerController();
             $companyUserController = new CompanyUserController();
+            $jobOfferImageController = new JobOfferImageController();
         
             $jobOffer = $this->jobOfferDao->getOne($id);
+            $jobOfferImage = $jobOfferImageController->GetOneByJobOfferId($id);
             $company = $companyController->GetOne($jobOffer->getCompanyId());
             $companyUser = $companyUserController->GetOneByCompanyId($company->getCompanyId());
             $jobPosition = $jobPositionController->GetOne($jobOffer->getJobPositionId());
             $career = $careerController->GetOne($jobPosition->getCareerId());
+
+            if($jobOfferImage->getJobOfferImageId() == null){
+                unset($jobOfferImage);
+            }
 
             require_once(VIEWS_PATH."JobOfferDetailsView.php");
         }
@@ -56,11 +63,17 @@ class JobOfferController{
         public function ShowModifyView($id, $alert = ""){
             $jobPositionController = new JobPositionController();
             $companyController = new CompanyController();
+            $jobOfferImageController = new JobOfferImageController();
             
             $jobPositionList = $jobPositionController->GetAll();
             $companyList = $companyController->GetAll();
-
+            
             $jobOfferToModify = $this->jobOfferDao->getOne($id);
+            $jobOfferImage = $jobOfferImageController->GetOneByJobOfferId($id);
+
+            if($jobOfferImage->getJobOfferImageId() == null){
+                unset($jobOfferImage);
+            }
 
             require_once(VIEWS_PATH."JobOfferModify.php");
         }

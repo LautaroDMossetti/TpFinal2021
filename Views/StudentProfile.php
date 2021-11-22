@@ -4,13 +4,23 @@
     use Models\Alert as Alert;
     use Models\Student as Student;
     use Models\CompanyUser as CompanyUser;
+    use Models\Admin as Admin;
 
     if(isset($_SESSION['loggedUser'])){
         $loggedUser = $_SESSION['loggedUser'];
+        $_SESSION['studentId'] = $student->getStudentId();
 
     require_once('header.php');
     require_once("nav.php");
 ?>
+
+<?php
+    if($alert != null && $alert instanceof Alert){
+        ?>
+        <h5 class="alert-<?php echo $alert->getType();?>" > <?php echo $alert->getMessage(); ?></h5>
+        <?php
+    }
+    ?>
 <main class="py-5">
     <h2>Alumno: <?php echo $student->getFirstName() . " " . $student->getLastName(); ?></h2>
 
@@ -34,10 +44,36 @@
             </form>
         <?php
     }
+    if($studentCv->getStudentCvId() != null){
+        ?>
+            <a href="../Uploads/StudentCvs/<?php echo $studentCv->getCv(); ?>" target="_blank">Ver Cv</a>
+        <?php
+    }
     if(! $loggedUser instanceof CompanyUser){
         ?>
             <form action="<?php echo FRONT_ROOT ?>Student/ShowStudentApplications" method="POST" style="display: inline;">
                 <button type="submit" name="id" value="<?php echo $student->getStudentId(); ?>">Ver Postulaciones</button>
+            </form>
+        <?php
+    }
+
+    if(($loggedUser instanceof Student && $loggedUser->getStudentId() == $student->getStudentId())){
+        ?>     
+            <br><br><br><br><br>
+
+            <?php if($studentCv->getStudentCvId() != null){
+                ?>
+                    <h3>Modificar Curriculum</h3>
+                <?php 
+                }else{
+                ?>
+                    <h3>Subir Curriculum</h3>
+                <?php
+            } ?>
+
+            <form action="<?php echo FRONT_ROOT ?>StudentCv/UploadCv" method="POST" enctype="multipart/form-data" style="display: inline;">
+                <input type="file" name="cv">
+                <button type="submit">Subir CV</button>
             </form>
         <?php
     }
